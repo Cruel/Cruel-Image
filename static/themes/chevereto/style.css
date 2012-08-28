@@ -38,14 +38,6 @@ h2 {
 	font-weight: normal;
 }
 
-#upload-action a, a#preferences, #selector a, #resizing-switch a {
-	-webkit-user-select: none;
-	-khtml-user-select: none;
-	-moz-user-select: none;
-	-o-user-select: none;
-	user-select: none;
-}
-
 input[type=file]{
 	position: absolute;
 	visibility: hidden;
@@ -121,7 +113,7 @@ input[type=file]{
 			float: left;
 			margin-right: 12px;
 		}
-	#foot a#c_chevereto {
+	#foot a#foot-site-title {
 		color: #999;
 	}
 	#foot a#powered {
@@ -132,7 +124,15 @@ input[type=file]{
 	}
 		#foot a#powered img {
 			margin-left: 5px;
-			vertical-align: text-bottom;
+			vertical-align: bottom;
+			transition: opacity 500ms;
+			-o-transition: opacity 500ms;
+			-moz-transition: opacity 500ms;
+			-webkit-transition: opacity 500ms;
+			opacity: 0.6;
+		}
+		#foot a#powered img:hover {
+			opacity: 1.0;
 		}
 	#foot p {
 		clear: both;

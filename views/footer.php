@@ -8,9 +8,9 @@
 				<li><a href="/tos">Terms of Service</a></li>
 				<li><a href="/contact">Contact</a></li>
 			</ul>
-			<p>&copy; 2012 <a href="http://chevereto.com/" target="_blank" title="Chevereto Image Upload Script" id="c_chevereto">Chevereto</a></p>
+			<p>&copy; 2012 <a href="http://images.cruels.net/" target="_blank" title="Cruel Image Upload Script" id="foot-site-title">Cruel Image</a></p>
 		</div>
-		<a href="https://github.com/Cruel/Cruel-Image" target="_blank" id="powered" title="Chevereto Image Hosting Script">Powered by <img src="http://demo.chevereto.com/content/themes/Peafowl/theme-img/chevereto.gif" alt="Chevereto image hosting script" /></a>
+		<a href="https://github.com/Cruel/Cruel-Image" target="_blank" id="powered" title="Cruel Image Hosting Script">Powered by <img src="<?php echo '/static/themes/'.CI_THEME.'/img/powered.png' ?>" alt="Cruel Image hosting script" /></a>
 	</div>
 </div>
 
