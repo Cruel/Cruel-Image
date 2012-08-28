@@ -1,0 +1,37 @@
+Options -Indexes -MultiViews
+Options +FollowSymlinks
+
+#################
+## php settings
+#################
+
+php_flag	register_globals	0
+php_flag	magic_quotes_gpc	0
+
+############
+## routing
+############
+
+RewriteEngine	On
+
+RewriteRule		^favicon.ico								static/favicon.ico			[L]
+
+RewriteRule		^(t/)?[\w]{4}\.(jpg|gif|png)$				index.php?action=image		[L]
+RewriteRule		^$											index.php?action=home		[L]
+RewriteRule		^rss.xml$									index.php?action=rss		[L]
+RewriteRule		^gallery$									index.php?action=gallery&page=1	[L]
+RewriteRule		^gallery/([\d]+)/?$					index.php?action=gallery&page=$1 [L,QSA]
+RewriteRule		^upload$										upload.php					[L]
+
+RewriteRule		^robots.txt$										static/robots.txt			[L]
+
+# Prevent access to anything that didn't match so far and isn't in /static/
+RewriteCond		%{ENV:REDIRECT_STATUS}										^$ 
+RewriteRule		^(?!static/|test\.php).										index.php?action=404					[L]
+
+#########################
+## performance settings
+#########################
+
+## gzip plaintext being sent to the user
+#AddOutputFilterByType	DEFLATE		text/html text/plain application/javascript application/x-javascript text/css
