@@ -25,10 +25,15 @@ if ($split_url[count($split_url)-2] == 't')
 	$file = new fFile(DOC_ROOT.'/uploads/thumb/'.$filename);
 else
 	$file = new fFile(DOC_ROOT.'/uploads/'.$filename);
+
 header('Pragma: public');
 header('Cache-Control: max-age=86400');
 header('Expires: '. gmdate('D, d M Y H:i:s \G\M\T', time() + 86400));
 header('Content-Length: ' . $file->getSize());
 header('Content-Type: ' . $file->getMimeType());
+if(isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) && $_SERVER['HTTP_IF_MODIFIED_SINCE'] == $file->getMTime()->format('D, d M Y H:i:s')){
+	header('Last-Modified: '.$_SERVER['HTTP_IF_MODIFIED_SINCE'], true, 304);
+	die();
+}
 header('Last-Modified: ' . $file->getMTime()->format('D, d M Y H:i:s'));
 $file->output(FALSE);
