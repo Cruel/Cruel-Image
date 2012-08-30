@@ -1,10 +1,8 @@
 <?php
 
-define('DOC_ROOT', realpath(dirname(__FILE__) . '/../'));
-define('URL_ROOT', substr(DOC_ROOT, strlen(realpath($_SERVER['DOCUMENT_ROOT']))) . '/');
-
-if (!include(DOC_ROOT.'/inc/config.php')){
-	if (!include(DOC_ROOT.'/install/install.php')){
+require_once('loader.php');
+if (!include('config.php')){
+	if (!include('../install/install.php')){
 		die('No installation files detected.');
 	}
 	IS_INSTALLED or die();
@@ -30,14 +28,3 @@ fORMDatabase::attach($db);
 // This prevents cross-site session transfer
 //fSession::setPath(DOC_ROOT . '/storage/session/');
 fSession::open();
-
-// http://php.net/manual/en/language.oop5.autoload.php
-function __autoload($class) {
-	$file = DOC_ROOT . "/inc/flourish/$class.php";
-	if (file_exists($file))
-		return require $file;
-	$file = DOC_ROOT . "/models/$class.php";
-	if (file_exists($file))
-		return require $file;
-	throw new Exception('The class ' . $class_name . ' could not be loaded');
-}

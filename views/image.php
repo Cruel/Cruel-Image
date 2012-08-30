@@ -1,6 +1,7 @@
 <?php
 
-require_once('inc/init.php');
+require_once('inc/loader.php');
+require_once('inc/config.php');
 fCore::enableDebugging(FALSE);
 
 function output404(){
@@ -24,4 +25,10 @@ if ($split_url[count($split_url)-2] == 't')
 	$file = new fFile(DOC_ROOT.'/uploads/thumb/'.$filename);
 else
 	$file = new fFile(DOC_ROOT.'/uploads/'.$filename);
-$file->output(TRUE);
+header('Pragma: public');
+header('Cache-Control: max-age=86400');
+header('Expires: '. gmdate('D, d M Y H:i:s \G\M\T', time() + 86400));
+header('Content-Length: ' . $file->getSize());
+header('Content-Type: ' . $file->getMimeType());
+header('Last-Modified: ' . $file->getMTime()->format('D, d M Y H:i:s'));
+$file->output(FALSE);
