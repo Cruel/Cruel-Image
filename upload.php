@@ -3,7 +3,6 @@ require_once('inc/init.php');
 fCore::enableDebugging(FALSE);
 
 $json = array('success'=>TRUE, 'files'=>array());
-define('CI_UPLOAD_DIR', DOC_ROOT.'/uploads/');
 
 function outputFail($messages){
 	fJSON::output(array('success'=>FALSE, 'errors'=>$messages));
@@ -36,10 +35,14 @@ if (count($errors) > 0)
 for ($i=0; $i < $upload_count; $i++) {
 	$file = $uploader->move(CI_UPLOAD_DIR, 'files', $i);
 	$image = new Image();
-	$image->setTitle('default title');
+	$image->setTitle('');
 	$image->storeFile($file);
-	//echo '<a href="'.CI_BASEURL.$image->getId().'">file</a>' . '<br />';
-	$json['files'][] = $image->getId();
+	$json['files'][] = array(
+		'id'	=> $image->getId(),
+		'domain' => CI_DOMAIN,
+		'thumb_url'	=> CI_BASEURL.'t/'.$image->getId().'.'.$image->getType(),
+		'url' => CI_BASEURL.$image->getId().'.'.$image->getType(),
+	);
 }
 
 fJSON::output($json);

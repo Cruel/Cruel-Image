@@ -65,7 +65,8 @@ function CloseAjaxDiv(obj){
 }
 
 function AddAjaxDiv(container, classname, msg){
-	$(container).prepend('<div class="ajax_msg '+classname+'">'+msg+'<div onclick="CloseAjaxDiv(this.parentNode);" class="delicon"></div></div>');
+	return $(container).prepend('<div class="ajax_msg clearfix '+classname+'">'+msg+'<div onclick="CloseAjaxDiv(this.parentNode);" class="delicon"></div></div>')
+		.children().first();
 }
 
 function handleXhrError(xhr) {

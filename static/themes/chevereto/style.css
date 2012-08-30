@@ -4,11 +4,11 @@ html, body {
 }
 
 html {
-	background: url(/static/themes/chevereto/img/background.png) repeat-x;
+	background: url(../../themes/chevereto/img/background.png) repeat-x;
 }
 
 body {
-	background: url(/static/themes/chevereto/img/bliss.png) no-repeat center top;
+	background: url(../../themes/chevereto/img/bliss.png) no-repeat center top;
 	color: #333;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 15px;
@@ -82,10 +82,10 @@ input[type=file]{
 
 #content {
 	top: 73px;
-	background: url(/static/themes/chevereto/img/bkg-content.png) no-repeat;
+	background: url(../../themes/chevereto/img/bkg-content.png) no-repeat;
 	width: 920px; /* 994 - 37*2 */
 	min-height: 180px;
-	padding: 64px 37px;
+	padding: 64px 37px 88px 37px;
 	overflow: auto;
 	margin-top: -26px;
 }
@@ -149,6 +149,7 @@ input[type=file]{
 }
 
 .ajax_msg{
+	clear: both;
 	position: relative;
 	padding: 5px;
 	margin: 5px 0;
@@ -162,32 +163,86 @@ input[type=file]{
 	background:green;
 	color:white
 }
+.ajax_uploaded {
+	padding: 15px;
+	vertical-align: middle;
+	background-color: #ddd;
+}
+	.ajax_uploaded .imgwrap {
+		float: left;
+		width: 440px;
+		max-height: 600px;
+		line-height:150px;
+		overflow:hidden;
+	}
+		.ajax_uploaded .imgwrap img {
+			float: left;
+		}
+	.ajax_uploaded .imgwrap-multi {
+		float: left;
+		width: 440px;
+		max-height: 100px;
+		line-height:100px;
+		overflow:hidden;
+	}
+		.ajax_uploaded .imgwrap-multi img {
+			float:left;
+			width: 100px;
+		}
+	.ajax_uploaded input{
+		width: 180px;
+		height: 25px;
+	}
+	.ajax_uploaded button{
+		width: 50px;
+		height: 30px;
+	}
+
+.zclip {
+	cursor: pointer;
+}
+	.zclip embed {
+		position: absolute;
+	}
+
 
 /****** UPLOADER ******/
 #imagescroller {
 	position: relative;
-	width: 500px;
-	height: 120px;
-	background: #777;
 	overflow: hidden;
+	margin: -51px 0 0 -24px;
+	cursor: pointer;
+}
+#imagescroller, #scrollercaption{
+	width: 968px;
+	height: 140px;
+	border-radius: 4px;
+	background-color: #fff;
+	background-image: -webkit-linear-gradient(rgba(255, 255, 255, 0.7) 0,rgba(50, 50, 50, 0.1) 150px);
+	background-image: -moz-linear-gradient(rgba(255, 255, 255, 0.7) 0,rgba(50, 50, 50, 0.1) 150px);
+	background-image: -o-linear-gradient(rgba(255, 255, 255, 0.7) 0,rgba(50, 50, 50, 0.1) 150px);
 }
 	#imagescroller ul{
 		position: relative;
-		/*display: inline-block;*/
 		height: 100%;
-		/*width: 2000px;*/
 	}
 	#imagescroller li{
 		position: relative;
 		float: left;
-		height: 110px;
-		/*width:80px;*/
-		margin: 5px;
+		height: 100%;
+		/*margin: 5px;*/
 		background: #000;
 	}
 	#imagescroller img {
-		height: 110px;
+		height: 100%;
+		opacity: 0.7;
 	}
+	#imagescroller img:hover {
+		opacity: 1.0;
+	}
+		/*#imagescroller img:hover + .delicon{*/
+			/*opacity: 0.9;*/
+		/*}*/
 #imageprogressbar {
 	height: 100%;
 	width: 100%;
@@ -197,14 +252,47 @@ input[type=file]{
 	opacity: 0.5;
 	z-index: 2;
 }
-.imgdelete, .delicon {
+#scrollercaption {
+	user-select: none;
+	-webkit-user-select:none;
+	-moz-user-select:none;
+	position: absolute;
+	font: bold 30px arial,sans-serif;
+	top: 0;
+	/*width: 100%;*/
+	/*height: 100%;*/
+	text-align: center;
+	line-height: 140px;
+	color: #aaa;
+	text-shadow:0 -1px 0 #444;
+	transition: all 500ms;
+	-o-transition: all 500ms;
+	-moz-transition: all 500ms;
+	-webkit-transition: all 500ms;
+}
+#scrollercaption:hover {
+	color: #aca;
+	background-color: #191;
+}
+.delicon {
 	position: absolute;
 	top: 3px;
 	right: 3px;
-	width: 10px;
-	height: 10px;
-	background: #000;
-	outline: 1px solid #fff;
+	width: 12px;
+	height: 12px;
+	/*opacity: 0.1;*/
+	cursor: pointer;
+	background: #fff url(../../themes/chevereto/img/ico-cancelupload.gif) center no-repeat;
+	border-radius: 5px;
+	box-shadow: 1px 1px 1px #888;
+}
+.delicon:hover {
+	background-color: #eee;
+}
+
+#uploadbuttons {
+	float: right;
+	margin: 5px 0;
 }
 
 /******** GALLERY *********/
@@ -216,3 +304,18 @@ input[type=file]{
 		margin: 4px;
 	}
 
+#infscr-loading {
+	text-align: center;
+	z-index: 100;
+	position: fixed;
+	left: 45%;
+	bottom: 40px;
+	width: 200px;
+	padding: 10px;
+	background: #000;
+	opacity: 0.8;
+	color: #FFF;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	border-radius: 10px;
+}

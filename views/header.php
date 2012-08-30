@@ -16,6 +16,7 @@
 		$this->add('js', '/static/js/slimbox2.js', TRUE);
 		$this->add('js', '/static/js/jquery.blockUI.js', TRUE);
 		$this->add('js', '/static/js/jquery.masonry.min.js', TRUE);
+		$this->add('js', '/static/js/jquery.zclip.min.js', TRUE);
 		$this->add('js', '/static/js/jquery.fileupload.js', TRUE);
 		$this->add('js', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js', TRUE);
 		$this->add('js', 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', TRUE);
@@ -24,6 +25,7 @@
 		$this->add('css', '/static/css/jquery-ui-1.8.21.css', TRUE);
 		$this->add('css', '/static/css/jquery.Jcrop.min.css', TRUE);
 		$this->add('css', '/static/css/slimbox2.css', TRUE);
+		$this->add('css', '/static/css/poshytip/tip-twitter/tip-twitter.css', TRUE);
 		$this->add('css', 'http://yui.yahooapis.com/3.6.0/build/cssreset/cssreset-min.css', TRUE);
 
 		echo $this->place('css');

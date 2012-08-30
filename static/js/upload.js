@@ -2,23 +2,30 @@ var filelist = [], imagelist = [];
 
 function addFileToList(file){
 	var image = new Image(),
-		reader = new FileReader();
+		reader = new FileReader(),
+		i = filelist.push(file);
 	reader.onload = function (e) {
 		image.src = e.target.result;
 	};
 	image.onload = function(){
-		addImageToList(this);
-		filelist.push(file);
+		addImageToList(this, i-1);
+
 	};
+
 	reader.readAsDataURL(file);
 }
 
-function addImageToList(image){
-	imagelist.push(image);
-	$('#imagescroller ul')
-		.append($('<li><div class="imgdelete"></div></li>')
-		.append(image));
+function addImageToList(image, index){
+	imagelist[index] = image;
+	$('#imagescroller ul').append(
+//		$('<li></li>').css('opacity','0').prepend(image).animate({opacity:'1'},2000)
+		$('<li></li>').prepend(image)
+	);
 	refreshScrollerWidth();
+	if (imagelist.length == filelist.length){
+		$('#scrollercaption').hide();
+		$('#uploadbuttons').show('slow');
+	}
 }
 
 function refreshScrollerWidth(){
@@ -27,6 +34,12 @@ function refreshScrollerWidth(){
 		x += $(this).outerWidth(true);
 	});
 	$('#imagescroller ul').width(x);
+	if ($imagescroller.width() < x) {
+		$imagescroller.mousemove(onImageScrollerMouseMove);
+	} else {
+		$imagescroller.unbind('mousemove');
+		drawImageList();
+	}
 }
 
 var timer3622 = 0;
@@ -61,19 +74,19 @@ function onImageScrollerMouseMove(e){
 	curX = Math.min(curX, new_w);
 	var percent = curX / new_w,
 		newLeft = -percent*($list.width() - w);
-	//$("#testlol").html(percent + " - " + $(this).offset().left + " - " + curX);
-	if (!scrollAnimating){
-		var leftDiff = Math.abs(newLeft-lastScrollLeft);
-		if (leftDiff > 400) {
-			scrollAnimating = true;
-			$list.animate({left:newLeft}, 200, function(){
-				scrollAnimating = false;
-			});
-		} else if (leftDiff > 15){
-			lastScrollLeft = newLeft;
+	//$("#results").html(percent + " - " + $(this).offset().left + " - " + curX);
+//	if (!scrollAnimating){
+//		var leftDiff = Math.abs(newLeft-lastScrollLeft);
+//		if (leftDiff > 100) {
+//			scrollAnimating = true;
+//			$list.animate({left:newLeft}, 200, function(){
+//				scrollAnimating = false;
+//			});
+//		} else if (leftDiff > 5){
+//			lastScrollLeft = newLeft;
 			drawImageList(newLeft);
-		}
-	}
+//		}
+//	}
 }
 
 function drawImageList(offset, percent){
@@ -85,28 +98,19 @@ function drawImageList(offset, percent){
 }
 
 var filetypes = /^image\/(gif|jpeg|png)$/;
-function fileChange() {
-	$.each(this.files, function (index, file) {
-		var duplicate = false;
-		for (i in filelist)
-			if (filelist[i].name == file.name)
-				duplicate = true;
-		if (!duplicate){
-			if (filetypes.test(file.type)){
-				addFileToList(file);
-			} else {
-				alert('The file type ('+file.type+') is not supported.');
-			}
-		}
-	});
-	// reloadFileList();
-	// drawImageList();
-}
 
 function resetUploader(){
 	filelist = [];
 	imagelist = [];
 	$('#imagescroller li').remove();
+	$('#scrollercaption').fadeIn('slow');
+	$('#uploadbuttons').hide('slow');
+}
+
+function clearResults(){
+	$('#results > *').hide('slow', function(){
+		$(this).remove();
+	});
 }
 
 function loadUploader(){
@@ -149,11 +153,11 @@ function loadUploader(){
 					if (filelist[i].name == file.name)
 						duplicate = true;
 				if (!duplicate){
-					// if (filetypes.test(file.type)){
+					if (filetypes.test(file.type)){
 						addFileToList(file);
-					// } else {
-					// 	alert('The file type ('+file.type+') is not supported.');
-					// }
+					} else {
+						AddAjaxDiv('#results', "ajax_msg_error", 'The file type ('+file.type+') is not supported.');
+					}
 				}
 			});
 			// $('#upload-controller').blockEx();
@@ -175,16 +179,48 @@ function loadUploader(){
 			});
 		},
 		done: function (e, data) {
+			$imagescroller.unblock();
 			resetUploader();
+			clearResults();
+			console.log(data.result);
 			if (data.result.success) {
-				// alert(data.result.files);
-				AddAjaxDiv('#results', "ajax_msg_success", 'Successfully uploaded: <input type="text" value="'+data.result.files+'" onclick="this.select();" />');
+				var files = data.result.files,
+					html = '',
+					wrapclass = (files.length > 2) ? 'imgwrap-multi' : 'imgwrap';
+				for (i in files){
+					html += '<div class="'+wrapclass+'">\
+								<img src="'+files[i].thumb_url+'" />\
+								<input type="text" value="'+files[i].domain+files[i].url+'" onclick="this.select();" />\
+								<button class="btnCopy">Copy</button>\
+							</div>';
+				}
+				AddAjaxDiv('#results', "ajax_uploaded", html).block().imagesLoaded(function(){
+					$(this).unblock().find('.btnCopy').zclip({
+						path: "static/ZeroClipboard.swf",
+						copy: function(){
+							return $(this).prev().val();
+						},
+						afterCopy: function(){
+							$(this).poshytip('show');
+						}
+					}).poshytip({
+							className: 'tip-twitter',
+							timeOnScreen: 2000,
+							content: 'Copied link',
+							showOn: 'none',
+							alignTo: 'target',
+							alignX: 'center',
+							offsetY: 5
+						});
+				})
+
 			} else {
-				// alert(data.result.errors);
-				AddAjaxDiv('#results', "ajax_msg_error", data.result.errors);
+				for (i in data.result.errors)
+					AddAjaxDiv('#results', "ajax_msg_error", data.result.errors[i]);
 			}
 		},
 		fail: function (e, data){
+			$imagescroller.unblock();
 			alert('Failed. Try again.');
 		}
 	});
@@ -193,30 +229,28 @@ function loadUploader(){
 var $imagescroller;
 function imagescroll_onload(){
 	$imagescroller = $('#imagescroller');
-	$('button').button();
+	$('#uploadbuttons button').button();
+	$('#uploadbuttons').hide();
 	loadUploader();
-	// $("#files").change(fileChange);
-	$("#btnAdd").click(function(){
+	$('#btnAdd, #scrollercaption').click(function(){
 		$('#files').click();
 	});
 	$("#btnClear").click(resetUploader);
 	$('#btnUpload').click(function(){
-		// $imagescroller.unbind('mousemove');
-		// progresstest();
+		$imagescroller.block();
 		var data = {
 			title: $('#title').val()
 		}
 		$('#uploadform').fileupload('option',{ formData: data })
 			.fileupload('send',{files: filelist});
 	});
-	$imagescroller.on('click', '.imgdelete', function(){
+	$imagescroller.on('click', 'img', function(){
 		var i = $(this).parent().index();
 		filelist.splice(i, 1);
 		imagelist.splice(i, 1);
 		$(this).parent().hide('slow',function(){
 			$(this).remove();
 			refreshScrollerWidth();
-			$imagescroller.mousemove();
 		});
-	}).mousemove(onImageScrollerMouseMove);
+	});
 }
