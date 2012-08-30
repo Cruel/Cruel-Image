@@ -13,8 +13,8 @@ function slimbox($selector){
 $(function(){
 	var $gallery = $('.gallery');
 
-	$gallery.imagesLoaded(function(){
-		$gallery.masonry({
+	$gallery.hide().imagesLoaded(function(){
+		$gallery.show().masonry({
 			itemSelector : 'a',
 		});
 	}).infinitescroll({
@@ -24,9 +24,6 @@ $(function(){
 			loading: {
 				finishedMsg: 'No more pages to load.',
 				img: 'static/loading.gif'
-//				selector: '#infinite-loading',
-//				start: function(){console.log('starting...');return true;},
-//				finished: function(){console.log('finished...');}
 			}
 		},
 		// trigger Masonry as a callback
