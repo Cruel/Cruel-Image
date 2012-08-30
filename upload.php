@@ -2,7 +2,7 @@
 require_once('inc/init.php');
 fCore::enableDebugging(FALSE);
 
-$json = array('success'=>TRUE, 'files'=>array());
+$json = array('success'=>TRUE, 'files'=>array(), 'errors'=>array());
 
 function outputFail($messages){
 	fJSON::output(array('success'=>FALSE, 'errors'=>$messages));
@@ -18,9 +18,10 @@ $uploader->setMIMETypes(
 	array(
 		'image/gif',
 		'image/jpeg',
+		'image/pjpeg',
 		'image/png'
 	),
-	'The file uploaded is not an image'
+	'This file is not a valid image.'
 );
 
 $errors    = array();
@@ -28,21 +29,25 @@ $upload_count = fUpload::count('files');
 for ($i=0; $i < $upload_count; $i++) {
 	$error = $uploader->validate('files', $i, TRUE);
 	if ($error)
-		$errors[] = $error;
+		$errors[$i] = $error;
 }
-if (count($errors) > 0)
+if (count($errors) == $upload_count)
 	outputFail($errors);
 for ($i=0; $i < $upload_count; $i++) {
-	$file = $uploader->move(CI_UPLOAD_DIR, 'files', $i);
-	$image = new Image();
-	$image->setTitle('');
-	$image->storeFile($file);
-	$json['files'][] = array(
-		'id'	=> $image->getId(),
-		'domain' => CI_DOMAIN,
-		'thumb_url'	=> CI_BASEURL.'t/'.$image->getId().'.'.$image->getType(),
-		'url' => CI_BASEURL.$image->getId().'.'.$image->getType(),
-	);
+	if (isset($errors[$i])){
+		$json['errors'][] = $_FILES['files']['name'][$i].' - '.$errors[$i];
+	} else {
+		$file = $uploader->move(CI_UPLOAD_DIR, 'files', $i);
+		$image = new Image();
+		$image->setTitle('');
+		$image->storeFile($file);
+		$json['files'][] = array(
+			'id'	=> $image->getId(),
+			'domain' => CI_DOMAIN,
+			'thumb_url'	=> CI_BASEURL.'t/'.$image->getId().'.'.$image->getType(),
+			'url' => CI_BASEURL.$image->getId().'.'.$image->getType(),
+		);
+	}
 }
 
 fJSON::output($json);

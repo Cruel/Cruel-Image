@@ -182,7 +182,6 @@ function loadUploader(){
 			$imagescroller.unblock();
 			resetUploader();
 			clearResults();
-			console.log(data.result);
 			if (data.result.success) {
 				var files = data.result.files,
 					html = '',
@@ -194,8 +193,8 @@ function loadUploader(){
 								<button class="btnCopy">Copy</button>\
 							</div>';
 				}
-				AddAjaxDiv('#results', "ajax_uploaded", html).block().imagesLoaded(function(){
-					$(this).unblock().find('.btnCopy').zclip({
+				AddAjaxDiv('#results', "ajax_uploaded", html).hide().imagesLoaded(function(){
+					$(this).show().find('.btnCopy').zclip({
 						path: "static/ZeroClipboard.swf",
 						copy: function(){
 							return $(this).prev().val();
@@ -214,10 +213,9 @@ function loadUploader(){
 						});
 				})
 
-			} else {
-				for (i in data.result.errors)
-					AddAjaxDiv('#results', "ajax_msg_error", data.result.errors[i]);
 			}
+			for (i in data.result.errors)
+				AddAjaxDiv('#results', "ajax_msg_error", data.result.errors[i]);
 		},
 		fail: function (e, data){
 			$imagescroller.unblock();
