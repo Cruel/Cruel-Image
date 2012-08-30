@@ -2,6 +2,7 @@
 
 define('CI_TITLE', 'Cruel Image Host');
 define('CI_THEME', 'chevereto');
+define('CI_DOMAIN', 'http://images.cruels.net');
 define('CI_BASEURL', '/'); // Must end with trailing slash if in subdirectory (ie. '/imagehoster/') 
 
 define('CI_MAX_FILESIZE', '4M'); // Must match maxFileSize value in upload.js
