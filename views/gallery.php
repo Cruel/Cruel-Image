@@ -21,7 +21,7 @@ $images = fRecordSet::build('Image', array('time<'=>$time), array('time'=>'desc'
 		</a>
 	<?php } ?>
 </div>
-
+<div id="infinite-loading"></div>
 <nav id="page-nav">
 	<a href="<?php echo CI_BASEURL.'gallery/'.($page + 1).'?time='.$time ?>"></a>
 </nav>
