@@ -30,3 +30,4 @@ define('CI_DATEFORMAT', 'n/j/y'); // http://php.net/manual/en/function.date.php
 define('CI_UUID_CHARS', 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789');
 define('CI_UUID_LENGTH', 4);
 define('CI_UPLOAD_DIR', DOC_ROOT.'/uploads/');
+define('CI_IMAGE_EXPIRATION', 31536000); // 365 days
