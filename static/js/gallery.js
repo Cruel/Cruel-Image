@@ -12,7 +12,10 @@ function slimbox($selector){
 
 $(function(){
 	var $gallery = $('.gallery');
-	$('#content').block();
+	$('#content').block({
+		css:{top:'100px'},
+		centerY:false
+	});
 	$gallery.hide().imagesLoaded(function(){
 		$('#content').unblock();
 		$gallery.show().masonry({
@@ -22,6 +25,7 @@ $(function(){
 				nextSelector : '#page-nav a',  // selector for the NEXT link (to page 2)
 				itemSelector : '.gallery > a',     // selector for all items you'll retrieve
 				loading: {
+					msgText: "<em>Loading more images...</em>",
 					finishedMsg: 'No more pages to load.',
 					img: 'static/loading.gif'
 				}
@@ -29,11 +33,11 @@ $(function(){
 			// trigger Masonry as a callback
 			function( newElements ) {
 				// hide new items while they are loading
-				var $newElems = $( newElements ).css({ opacity: 0 });
+				var $newElems = $( newElements).css({ opacity: 0 }).hide();
 				// ensure that images load before adding to masonry layout
 				$newElems.imagesLoaded(function(){
 					slimbox($newElems);
-					$newElems.animate({ opacity: 1 });
+					$newElems.show().animate({ opacity: 1 }, 1000);
 					$gallery.masonry( 'appended', $newElems, true );
 				});
 			}
