@@ -16,7 +16,7 @@ $images = fRecordSet::build('Image', array('time<'=>$time), array('time'=>'desc'
 	foreach ($images as $image){
 		$file = $image->getId().'.'.$image->getType();
 	?>
-		<a href="<?php echo $file ?>" rel="lightbox" title="<?php echo $image->encodeTitle() ?>">
+		<a href="<?php echo URL_ROOT.$file ?>" rel="lightbox" title="<?php echo $image->encodeTitle() ?>">
 			<img src="/t/<?php echo $file ?>" />
 		</a>
 	<?php } ?>

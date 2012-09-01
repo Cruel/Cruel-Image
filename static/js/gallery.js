@@ -12,32 +12,35 @@ function slimbox($selector){
 
 $(function(){
 	var $gallery = $('.gallery');
-
+	$('#content').block();
 	$gallery.hide().imagesLoaded(function(){
+		$('#content').unblock();
 		$gallery.show().masonry({
 			itemSelector : 'a',
-		});
-	}).infinitescroll({
-			navSelector  : '#page-nav',    // selector for the paged navigation
-			nextSelector : '#page-nav a',  // selector for the NEXT link (to page 2)
-			itemSelector : '.gallery > a',     // selector for all items you'll retrieve
-			loading: {
-				finishedMsg: 'No more pages to load.',
-				img: 'static/loading.gif'
+		}).infinitescroll({
+				navSelector  : '#page-nav',    // selector for the paged navigation
+				nextSelector : '#page-nav a',  // selector for the NEXT link (to page 2)
+				itemSelector : '.gallery > a',     // selector for all items you'll retrieve
+				loading: {
+					finishedMsg: 'No more pages to load.',
+					img: 'static/loading.gif'
+				}
+			},
+			// trigger Masonry as a callback
+			function( newElements ) {
+				// hide new items while they are loading
+				var $newElems = $( newElements ).css({ opacity: 0 });
+				// ensure that images load before adding to masonry layout
+				$newElems.imagesLoaded(function(){
+					slimbox($newElems);
+					$newElems.animate({ opacity: 1 });
+					$gallery.masonry( 'appended', $newElems, true );
+				});
 			}
-		},
-		// trigger Masonry as a callback
-		function( newElements ) {
-			// hide new items while they are loading
-			var $newElems = $( newElements ).css({ opacity: 0 });
-			// ensure that images load before adding to masonry layout
-			$newElems.imagesLoaded(function(){
-				slimbox($newElems);
-				$newElems.animate({ opacity: 1 });
-				$gallery.masonry( 'appended', $newElems, true );
-			});
-		}
-	);
+		);
+	}).progress( function( isBroken, $images, $proper, $broken ){
+		$('.blockMsg').html('Loading Images... ' + ( $proper.length + $broken.length ) + '/' + $images.length);
+	});
 	$('#infinite-loading').hide();
 	slimbox($("a[rel^='lightbox']"));
 });
