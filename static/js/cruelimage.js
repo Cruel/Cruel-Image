@@ -1,3 +1,16 @@
+$.blockUI.defaults.css = {
+	border: 'none',
+	padding: '10px',
+	backgroundColor: '#000',
+	'-webkit-border-radius': '10px',
+	'-moz-border-radius': '10px',
+	opacity: 0.8,
+	color: '#fff'
+};
+$.blockUI.defaults.overlayCSS = {
+	opacity:0
+};
+
 function loadImageCropper(selector){
 	$(selector).change(function(){
 		if (!FileReader){
