@@ -54,4 +54,5 @@ dwsync.xml
 # CakePHP tmp files
 tmp/*
 uploads/*
+static/cache/*
 *.json

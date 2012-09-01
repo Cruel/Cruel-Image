@@ -25,7 +25,7 @@
 		$this->add('css', '/static/css/jquery-ui-1.8.21.css', TRUE);
 		$this->add('css', '/static/css/jquery.Jcrop.min.css', TRUE);
 		$this->add('css', '/static/css/slimbox2.css', TRUE);
-		$this->add('css', '/static/css/poshytip/tip-twitter/tip-twitter.css', TRUE);
+		$this->add('css', '/static/css/poshytip-twitter/tip-twitter.css', TRUE);
 		$this->add('css', 'http://yui.yahooapis.com/3.6.0/build/cssreset/cssreset-min.css', TRUE);
 
 		echo $this->place('css');
