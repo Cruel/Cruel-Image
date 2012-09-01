@@ -35,21 +35,19 @@ function addImageToList(image, index){
 }
 
 function refreshScrollerWidth(){
-	var x = 0,
-		w = $('#imagescroller ul').width();
-	$('#imagescroller ul').width('');
+	var x = 0;
 	$('#imagescroller li').each(function(){
 		console.log($(this).outerWidth(true));
 		x += $(this).outerWidth(true);
 	});
-	$('#imagescroller ul').width(x);
+	$('#imagescroller ul').width(x+1);
 	if ($imagescroller.width() < x) {
 		$imagescroller.mousemove(onImageScrollerMouseMove);
 	} else {
 		$imagescroller.unbind('mousemove');
 		drawImageList();
 	}
-	console.log('Scroller Width: '+x);
+//	console.log('Scroller Width: '+x);
 }
 
 var timer3622 = 0;
@@ -251,6 +249,7 @@ function imagescroll_onload(){
 	});
 	$("#btnClear").click(resetUploader);
 	$('#btnUpload').click(function(){
+		$imagescroller.unbind('mousemove');
 		$('#uploadbuttons').hide();
 		$imagescroller.block();
 		var data = {
