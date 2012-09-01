@@ -81,7 +81,7 @@ input[type=file]{
 }
 
 #content {
-	top: 73px;
+	position: relative;
 	background: url(../../themes/chevereto/img/bkg-content.png) no-repeat;
 	width: 920px; /* 994 - 37*2 */
 	min-height: 180px;
@@ -184,6 +184,7 @@ input[type=file]{
 		max-height: 100px;
 		line-height:100px;
 		overflow:hidden;
+		margin: 4px 0;
 	}
 		.ajax_uploaded .imgwrap-multi img {
 			float:left;
@@ -231,10 +232,10 @@ input[type=file]{
 		float: left;
 		height: 100%;
 		/*margin: 5px;*/
-		background: #000;
 	}
 	#imagescroller img {
-		height: 100%;
+		max-height: 100%;
+		max-width: 900px;
 		opacity: 0.7;
 	}
 	#imagescroller img:hover {

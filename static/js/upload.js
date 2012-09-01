@@ -9,28 +9,37 @@ function addFileToList(file){
 	};
 	image.onload = function(){
 		addImageToList(this, i-1);
-
 	};
-
 	reader.readAsDataURL(file);
 }
 
 function addImageToList(image, index){
 	imagelist[index] = image;
-	$('#imagescroller ul').append(
-//		$('<li></li>').css('opacity','0').prepend(image).animate({opacity:'1'},2000)
-		$('<li></li>').prepend(image)
-	);
-	refreshScrollerWidth();
+	for (var i=0; i < imagelist.length; i++)
+		if (imagelist[i] == undefined)
+			return;
 	if (imagelist.length == filelist.length){
+		var addcount = 0;
 		$('#scrollercaption').hide();
 		$('#uploadbuttons').show('slow');
+		for (i in imagelist){
+			if (i >= $('#imagescroller li').length) {
+				$('#imagescroller ul').append(
+					$('<li></li>').append(imagelist[i]).css('opacity',0).delay(addcount*250).animate({opacity:1},1500)
+				);
+				addcount++;
+				refreshScrollerWidth();
+			}
+		}
 	}
 }
 
 function refreshScrollerWidth(){
-	var x = 0;
+	var x = 0,
+		w = $('#imagescroller ul').width();
+	$('#imagescroller ul').width('');
 	$('#imagescroller li').each(function(){
+		console.log($(this).outerWidth(true));
 		x += $(this).outerWidth(true);
 	});
 	$('#imagescroller ul').width(x);
@@ -40,6 +49,7 @@ function refreshScrollerWidth(){
 		$imagescroller.unbind('mousemove');
 		drawImageList();
 	}
+	console.log('Scroller Width: '+x);
 }
 
 var timer3622 = 0;
@@ -102,7 +112,9 @@ var filetypes = /^image\/(gif|jpeg|png)$/;
 function resetUploader(){
 	filelist = [];
 	imagelist = [];
-	$('#imagescroller li').remove();
+	$('#imagescroller li').hide('slow', function(){
+		$(this).remove();
+	});
 	$('#scrollercaption').fadeIn('slow');
 	$('#uploadbuttons').hide('slow');
 }
@@ -160,6 +172,8 @@ function loadUploader(){
 					}
 				}
 			});
+//			if (filelist.length > $('#imagescroller li').length)
+//				addFileImages
 			// $('#upload-controller').blockEx();
 		},
 		'progress': function(e, data){
@@ -219,12 +233,14 @@ function loadUploader(){
 		},
 		fail: function (e, data){
 			$imagescroller.unblock();
+			$('#uploadbuttons').show();
 			alert('Failed. Try again.');
 		}
 	});
 }
 
-var $imagescroller;
+var $imagescroller,
+	deletingImage = false;
 function imagescroll_onload(){
 	$imagescroller = $('#imagescroller');
 	$('#uploadbuttons button').button();
@@ -235,6 +251,7 @@ function imagescroll_onload(){
 	});
 	$("#btnClear").click(resetUploader);
 	$('#btnUpload').click(function(){
+		$('#uploadbuttons').hide();
 		$imagescroller.block();
 		var data = {
 			title: $('#title').val()
@@ -243,12 +260,19 @@ function imagescroll_onload(){
 			.fileupload('send',{files: filelist});
 	});
 	$imagescroller.on('click', 'img', function(){
+		if (imagelist.length == 1){
+			resetUploader();
+			return false;
+		}
+		if (deletingImage) return false;
+		deletingImage = true;
 		var i = $(this).parent().index();
 		filelist.splice(i, 1);
 		imagelist.splice(i, 1);
 		$(this).parent().hide('slow',function(){
 			$(this).remove();
 			refreshScrollerWidth();
+			deletingImage = false;
 		});
 	});
 }
