@@ -227,6 +227,7 @@ input[type=file]{
 	#imagescroller ul{
 		position: relative;
 		height: 100%;
+		min-width: 968px;
 	}
 	#imagescroller li{
 		position: relative;
@@ -297,10 +298,26 @@ input[type=file]{
 	margin: 5px 0;
 }
 
+#optiondialog {
+	display: none;
+}
+
+/*****IMAGE CROPPER********/
+.cropdialog {
+	display:none;
+}
+.cropimage {
+	float: left;
+}
+.cropthumb {
+	float: right;
+}
+
 /******** GALLERY *********/
 .gallery {
 	width: 850px;
 	margin: 0 auto;
+	overflow: hidden
 }
 	.gallery img {
 		margin: 4px;

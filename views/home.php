@@ -25,7 +25,25 @@ $template->place('header');
 		<input id="files" type="file" name="files[]" multiple accept="image/*" />
 	</form>
 
-	<div id="results">	</div>
+	<div id="results"></div>
+
+	<div class="cropdialog">
+		<div class="cropimage"></div>
+		<canvas class="cropthumb" width="150" height="150"></canvas>
+		<div>
+			<select>
+				<option value="">None</option>
+				<option value="1">1:1</option>
+				<option value="2">2:1</option>
+				<option value="1.33">4:3</option>
+			</select>
+		</div>
+	</div>
+
+	<div id="optiondialog">
+		<button id="btnCrop">Crop</button>
+		<button id="btnDelete">Delete</button>
+	</div>
 
 <?php
 $template->place('footer');

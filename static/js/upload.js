@@ -1,19 +1,28 @@
 var filelist = [], imagelist = [];
 
-function addFileToList(file){
+function addFileToList(file, index){
 	var image = new Image(),
-		reader = new FileReader(),
-		i = filelist.push(file);
+		reader = new FileReader();
+	if (index == undefined)
+		index = filelist.push(file) - 1;
+	else
+		filelist[index] =  file;
 	reader.onload = function (e) {
 		image.src = e.target.result;
 	};
 	image.onload = function(){
-		addImageToList(this, i-1);
+		addImageToList(this, index);
 	};
 	reader.readAsDataURL(file);
 }
 
 function addImageToList(image, index){
+	if (imagelist[index] != undefined){
+		imagelist[index] = image;
+		$('#imagescroller li').eq(index).html(image);
+		refreshScrollerWidth();
+		return;
+	}
 	imagelist[index] = image;
 	for (var i=0; i < imagelist.length; i++)
 		if (imagelist[i] == undefined)
@@ -25,7 +34,7 @@ function addImageToList(image, index){
 		for (i in imagelist){
 			if (i >= $('#imagescroller li').length) {
 				$('#imagescroller ul').append(
-					$('<li></li>').append(imagelist[i]).css('opacity',0).delay(addcount*250).animate({opacity:1},1500)
+					$('<li></li>').append(imagelist[i])//.css('opacity',0).delay(addcount*250).animate({opacity:1},1500)
 				);
 				addcount++;
 				refreshScrollerWidth();
@@ -115,6 +124,7 @@ function resetUploader(){
 	});
 	$('#scrollercaption').fadeIn('slow');
 	$('#uploadbuttons').hide('slow');
+	$imagescroller.unblock();
 }
 
 function clearResults(){
@@ -237,9 +247,9 @@ function loadUploader(){
 	});
 }
 
-var $imagescroller,
-	deletingImage = false;
+var $imagescroller;
 function imagescroll_onload(){
+	var $optiondialog= $('#optiondialog');
 	$imagescroller = $('#imagescroller');
 	$('#uploadbuttons button').button();
 	$('#uploadbuttons').hide();
@@ -259,19 +269,36 @@ function imagescroll_onload(){
 			.fileupload('send',{files: filelist});
 	});
 	$imagescroller.on('click', 'img', function(){
+		$imagescroller.unbind('mousemove');
+		$imagescroller.block({
+			message: $('#optiondialog').data('index',$(this).parent().index()),
+			overlayCSS: {opacity:0.3}
+		});
+	});
+
+	$('#btnDelete').click(function(){
+		var i = $optiondialog.data('index');
 		if (imagelist.length == 1){
 			resetUploader();
 			return false;
 		}
-		if (deletingImage) return false;
-		deletingImage = true;
-		var i = $(this).parent().index();
 		filelist.splice(i, 1);
 		imagelist.splice(i, 1);
-		$(this).parent().hide('slow',function(){
+		$imagescroller.find('li').eq(i).hide('slow',function(){
 			$(this).remove();
 			refreshScrollerWidth();
-			deletingImage = false;
+			$imagescroller.unblock();
 		});
+	});
+
+	$('#btnCrop').click(function(){
+		var c = document.createElement('canvas'),
+			i = $optiondialog.data('index');
+		if (c.toBlob) {
+			loadImageCropper(i);
+		} else {
+			alert("Your browser doesn't support image modification, please use Chrome or Firefox.");
+		}
+		$imagescroller.unblock();
 	});
 }
