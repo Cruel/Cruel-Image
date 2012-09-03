@@ -1,7 +1,7 @@
 <?php
 
 $template->set('title', 'Gallery - '.CI_TITLE);
-$template->add('js', '/static/js/gallery.js');
+$template->add('js_extra', CI_BASEURL.'static/js/gallery.js');
 $template->place('header');
 
 $page = fRequest::get('page');

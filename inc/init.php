@@ -20,7 +20,7 @@ fCore::enableExceptionHandling('html');
 $template = new fTemplating(DOC_ROOT . '/views/');
 $template->set('header', 'header.php');
 $template->set('footer', 'footer.php');
-//$template->enableMinification('development', $_SERVER['DOCUMENT_ROOT'] . '/static/cache/');
+$template->enableMinification('development', $_SERVER['DOCUMENT_ROOT'] . '/static/cache/min/');
 
 $db  = new fDatabase(CI_DB_TYPE, CI_DB_NAME, CI_DB_USER, CI_DB_PASS, CI_DB_HOST, CI_DB_PORT);
 fORMDatabase::attach($db);
