@@ -56,9 +56,9 @@
 			<fieldset id="config_fields">
 				<legend>Site Configuration</legend>
 				<dt>Title</dt>
-				<dd><input name="title" type="text" /></dd>
-				<dt>Path</dt>
-				<dd><input name="path" type="text" value="<?php echo fURL::get() ?>" /></dd>
+				<dd><input name="title" type="text" placeholder="Cruel Image Hosting" /></dd>
+				<dt>Domain</dt>
+				<dd><input name="domain" type="hidden" value="<?php echo fURL::getDomain() ?>" /></dd>
 				<button id="btnInstall">Install</button>
 				<div id="install_error"></div>
 			</fieldset>
