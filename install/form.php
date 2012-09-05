@@ -5,6 +5,24 @@
 	<meta charset="utf-8" />
 	<meta name="description" content="This is CruelImage" />
 	<link rel="shortcut icon" type="image/png" href="static/favicon.png">
+	<?php
+	$template->add('js', 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js');
+	$template->add('js', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js');
+	$template->add('js', 'static/js/jquery.poshytip.min.js');
+	$template->add('js', 'static/js/slimbox2.js');
+//	$template->add('js', 'static/js/cruelimage.js');
+
+//	$template->add('css', 'http://yui.yahooapis.com/3.6.0/build/cssreset/cssreset-min.css');
+//	$template->add('css', 'static/themes/'.CI_THEME.'/style.css');
+	$template->add('css', 'static/css/jquery-ui-1.8.21.css');
+	$template->add('css', 'static/css/slimbox2.css');
+	$template->add('css', 'static/css/poshytip-twitter/tip-twitter.css');
+
+
+	echo $template->place('css');
+	echo $template->place('js');
+	?>
+
 	<style type="text/css">
 		<?php include('style.css') ?>
 	</style>
@@ -13,12 +31,50 @@
 	<h1>Cruel Image Installation</h1>
 	<form action="<?php echo fURL::get() ?>" method="POST">
 		<dl>
-			<dt>Title</dt>
-			<dd><input name="title" type="text" /></dd>
+			<fieldset id="db_fields">
+				<legend>Database</legend>
+				<dt>Type</dt>
+				<dd>
+					<select name="db_type" disabled>
+						<option value="mysql">MySQL</option>
+					</select>
+				</dd>
+				<dt>Name</dt>
+				<dd><input name="db_name" type="text" /></dd>
+				<dt>Username</dt>
+				<dd><input name="db_user" type="text" /></dd>
+				<dt>Password</dt>
+				<dd><input name="db_pass" type="password" /></dd>
+				<dt>Host</dt>
+				<dd><input name="db_host" type="text" /> Leave blank for default host</dd>
+				<dt>Port</dt>
+				<dd><input name="db_port" type="number" /> Leave blank for default port</dd>
+				<button id="btnCreateDatabase">Create Database</button>
+				<div id="db_error"></div>
+			</fieldset>
 
-			<dt>Path</dt>
-			<dd><input name="path" type="text" value="<?php echo fURL::get() ?>" /></dd>
+			<fieldset id="config_fields">
+				<legend>Site Configuration</legend>
+				<dt>Title</dt>
+				<dd><input name="title" type="text" /></dd>
+				<dt>Path</dt>
+				<dd><input name="path" type="text" value="<?php echo fURL::get() ?>" /></dd>
+				<button id="btnInstall">Install</button>
+				<div id="install_error"></div>
+			</fieldset>
 		</dl>
+
+		<div id="install_message">
+			<h3>Successfully Installed!</h3>
+			<p>Your configuration file has been created at <em id="config_file"></em>.</p>
+			<textarea></textarea>
+			<p>To recreate the configuration file using this installer, just delete it and navigate to this page again.</p>
+			<p>However it is recommended that you now <strong>delete or rename</strong> your <em>/install/</em> folder for security, in the case your configuration is accidentally deleted.</p>
+			<p>To view your new site, simply <a href="javascript:window.location.reload()">refresh</a>.</p>
+		</div>
 	</form>
+	<script>
+		<?php include('install.js') ?>
+	</script>
 </body>
 </html>
