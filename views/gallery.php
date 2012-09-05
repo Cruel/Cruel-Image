@@ -1,7 +1,7 @@
 <?php
 
 $template->set('title', 'Gallery - '.CI_TITLE);
-$template->add('js_extra', CI_BASEURL.'static/js/gallery.js');
+$template->add('js_extra', URL_ROOT.'static/js/gallery.js');
 $template->place('header');
 
 $page = fRequest::get('page');
@@ -17,13 +17,13 @@ $images = fRecordSet::build('Image', array('time<'=>$time), array('time'=>'desc'
 		$file = $image->getId().'.'.$image->getType();
 	?>
 		<a href="<?php echo URL_ROOT.$file ?>" rel="lightbox" title="<?php echo $image->encodeTitle() ?>">
-			<img src="/t/<?php echo $file ?>" />
+			<img src="<?php echo URL_ROOT.'t/'.$file ?>" />
 		</a>
 	<?php } ?>
 </div>
 <div id="infinite-loading"></div>
 <nav id="page-nav">
-	<a href="<?php echo CI_BASEURL.'gallery/'.($page + 1).'?time='.$time ?>"></a>
+	<a href="<?php echo URL_ROOT.'gallery/'.($page + 1).'?time='.$time ?>"></a>
 </nav>
 
 <?php

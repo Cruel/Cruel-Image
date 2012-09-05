@@ -44,8 +44,8 @@ for ($i=0; $i < $upload_count; $i++) {
 		$json['files'][] = array(
 			'id'	=> $image->getId(),
 			'domain' => CI_DOMAIN,
-			'thumb_url'	=> CI_BASEURL.'t/'.$image->getId().'.'.$image->getType(),
-			'url' => CI_BASEURL.$image->getId().'.'.$image->getType(),
+			'thumb_url'	=> URL_ROOT.'t/'.$image->getId().'.'.$image->getType(),
+			'url' => URL_ROOT.$image->getId().'.'.$image->getType(),
 		);
 	}
 }

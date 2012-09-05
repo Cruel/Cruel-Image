@@ -10,7 +10,7 @@
 			</ul>
 			<p>&copy; 2012 <a href="http://images.cruels.net/" target="_blank" title="Cruel Image Upload Script" id="foot-site-title">Cruel Image</a></p>
 		</div>
-		<a href="https://github.com/Cruel/Cruel-Image" target="_blank" id="powered" title="Cruel Image Hosting Script">Powered by <img src="<?php echo '/static/themes/'.CI_THEME.'/img/powered.png' ?>" alt="Cruel Image hosting script" /></a>
+		<a href="https://github.com/Cruel/Cruel-Image" target="_blank" id="powered" title="Cruel Image Hosting Script">Powered by <img src="<?php echo URL_ROOT.'static/themes/'.CI_THEME.'/img/powered.png' ?>" alt="Cruel Image hosting script" /></a>
 	</div>
 </div>
 

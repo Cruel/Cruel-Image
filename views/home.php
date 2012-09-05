@@ -17,7 +17,7 @@ $template->place('header');
 		<button id="btnUpload">Upload</button>
 	</div>
 
-	<form id="uploadform" action="/upload" method="POST" enctype="multipart/form-data">
+	<form id="uploadform" action="<?php echo URL_ROOT ?>upload" method="POST" enctype="multipart/form-data">
 <!--		<label for="title">Title</label>-->
 <!--		<input id="title" type="text" name="title" placeholder="Optional" />-->
 
