@@ -2,7 +2,6 @@
 
 define('CI_TITLE', $title);
 define('CI_THEME', 'chevereto');
-define('CI_DOMAIN', 'http://images.cruels.net');
 
 define('CI_MAX_FILESIZE', '4M'); // Must match maxFileSize value in upload.js
 define('CI_MAX_IMAGE_WIDTH', NULL);

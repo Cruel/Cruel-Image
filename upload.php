@@ -43,7 +43,7 @@ for ($i=0; $i < $upload_count; $i++) {
 		$image->storeFile($file);
 		$json['files'][] = array(
 			'id'	=> $image->getId(),
-			'domain' => CI_DOMAIN,
+			'domain' => fURL::getDomain(),
 			'thumb_url'	=> URL_ROOT.'t/'.$image->getId().'.'.$image->getType(),
 			'url' => URL_ROOT.$image->getId().'.'.$image->getType(),
 		);

@@ -30,6 +30,7 @@
 <body>
 	<h1>Cruel Image Installation</h1>
 	<form action="<?php echo fURL::get() ?>" method="POST">
+		<input name="domain" type="hidden" value="<?php echo fURL::getDomain() ?>" />
 		<dl>
 			<fieldset id="db_fields">
 				<legend>Database</legend>
@@ -57,8 +58,6 @@
 				<legend>Site Configuration</legend>
 				<dt>Title</dt>
 				<dd><input name="title" type="text" placeholder="Cruel Image Hosting" /></dd>
-				<dt>Domain</dt>
-				<dd><input name="domain" type="hidden" value="<?php echo fURL::getDomain() ?>" /></dd>
 				<button id="btnInstall">Install</button>
 				<div id="install_error"></div>
 			</fieldset>
