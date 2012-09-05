@@ -23,9 +23,9 @@
 			 }
 		}
 
-		// public function setImage($file_path){
-		// 	$this->setFileName($file_path);
-		// }
+		public function getIp(){
+			return inet_ntop(parent::getIp());
+		}
 
 		public function storeFile($file){
 			$this->file = $file;
@@ -36,7 +36,7 @@
 			$this->processImage();
 
 			$this->setFileName($file_path);
-			$this->setIp($_SERVER['REMOTE_ADDR']);
+			$this->setIp(inet_pton($_SERVER['REMOTE_ADDR']));
 			$this->setType($file->getType());
 			$this->setWidth($file->getWidth());
 			$this->setHeight($file->getHeight());
