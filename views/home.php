@@ -23,6 +23,7 @@ $template->place('header');
 
 		<input type="hidden" id="token" value="<?php echo fRequest::generateCSRFToken() ?>" />
 		<input id="files" type="file" name="files[]" multiple accept="image/*" />
+		<input id="url" name="url" type="text" placeholder="Paste Remote URL Here" />
 	</form>
 
 	<div id="results"></div>

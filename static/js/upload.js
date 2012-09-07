@@ -43,6 +43,15 @@ function addImageToList(image, index){
 	}
 }
 
+function uploadURL(url){
+	$.post('/upload', {
+		url: url
+	}, function(data){
+		data.result = data;
+		uploadDone(null, data);
+	});
+}
+
 function refreshScrollerWidth(){
 	var x = 0;
 	$('#imagescroller li').each(function(){
@@ -133,6 +142,46 @@ function clearResults(){
 	});
 }
 
+function uploadDone(e, data) {
+	$imagescroller.unblock();
+	resetUploader();
+	clearResults();
+	if (data.result.success) {
+		var files = data.result.files,
+			html = '',
+			wrapclass = (files.length > 2) ? 'imgwrap-multi' : 'imgwrap';
+		for (i in files){
+			html += '<div class="'+wrapclass+'">\
+								<img src="'+files[i].thumb_url+'" />\
+								<input type="text" value="'+files[i].domain+files[i].url+'" onclick="this.select();" />\
+								<button class="btnCopy">Copy</button>\
+							</div>';
+		}
+		AddAjaxDiv('#results', "ajax_uploaded", html).hide().imagesLoaded(function(){
+			$(this).show().find('.btnCopy').zclip({
+				path: "static/ZeroClipboard.swf",
+				copy: function(){
+					return $(this).prev().val();
+				},
+				afterCopy: function(){
+					$(this).poshytip('show');
+				}
+			}).poshytip({
+					className: 'tip-twitter',
+					timeOnScreen: 2000,
+					content: 'Copied link',
+					showOn: 'none',
+					alignTo: 'target',
+					alignX: 'center',
+					offsetY: 5
+				});
+		})
+
+	}
+	for (i in data.result.errors)
+		AddAjaxDiv('#results', "ajax_msg_error", data.result.errors[i]);
+}
+
 function loadUploader(){
 	$(document).bind('drop dragover', function (e) {
 		e.preventDefault(); // Prevent browser's default action
@@ -200,45 +249,7 @@ function loadUploader(){
 				//loadImage(file);
 			});
 		},
-		done: function (e, data) {
-			$imagescroller.unblock();
-			resetUploader();
-			clearResults();
-			if (data.result.success) {
-				var files = data.result.files,
-					html = '',
-					wrapclass = (files.length > 2) ? 'imgwrap-multi' : 'imgwrap';
-				for (i in files){
-					html += '<div class="'+wrapclass+'">\
-								<img src="'+files[i].thumb_url+'" />\
-								<input type="text" value="'+files[i].domain+files[i].url+'" onclick="this.select();" />\
-								<button class="btnCopy">Copy</button>\
-							</div>';
-				}
-				AddAjaxDiv('#results', "ajax_uploaded", html).hide().imagesLoaded(function(){
-					$(this).show().find('.btnCopy').zclip({
-						path: "static/ZeroClipboard.swf",
-						copy: function(){
-							return $(this).prev().val();
-						},
-						afterCopy: function(){
-							$(this).poshytip('show');
-						}
-					}).poshytip({
-							className: 'tip-twitter',
-							timeOnScreen: 2000,
-							content: 'Copied link',
-							showOn: 'none',
-							alignTo: 'target',
-							alignX: 'center',
-							offsetY: 5
-						});
-				})
-
-			}
-			for (i in data.result.errors)
-				AddAjaxDiv('#results', "ajax_msg_error", data.result.errors[i]);
-		},
+		done: uploadDone,
 		fail: function (e, data){
 			$imagescroller.unblock();
 			$('#uploadbuttons').show();
@@ -300,5 +311,12 @@ function imagescroll_onload(){
 			alert("Your browser doesn't support image modification, please use Chrome or Firefox.");
 		}
 		$imagescroller.unblock();
+	});
+
+	$('#url').bind('paste', function(){
+		setTimeout(function(){
+			uploadURL($('#url').val());
+			$('#url').val('');
+		}, 100);
 	});
 }
