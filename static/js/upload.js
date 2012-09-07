@@ -145,7 +145,6 @@ function clearResults(){
 function uploadDone(e, data) {
 	$imagescroller.unblock();
 	resetUploader();
-	clearResults();
 	if (data.result.success) {
 		var files = data.result.files,
 			html = '',
