@@ -338,3 +338,84 @@ input[type=file]{
 	-moz-border-radius: 10px;
 	border-radius: 10px;
 }
+
+/***** TAB MENU *******/
+#menu {
+	position: absolute;
+	bottom: 14px;
+	right: 22px;
+}
+#menu ul {
+	list-style: none;
+	line-height: normal; }
+#menu li {
+	position: relative;
+	display: inline;
+	text-align: center; }
+#menu a {
+	position: relative;
+	float: left;
+	font: bold 15px Verdana;
+	line-height: 40px;
+	margin-left: 4px;
+	padding: 0 10px;
+	text-align: center;
+	text-transform: uppercase;
+	text-decoration: none;
+	color: white;
+	-webkit-border-radius: 8px 8px 0 0;
+	-moz-border-radius: 8px 8px 0 0;
+	-ms-border-radius: 8px 8px 0 0;
+	-o-border-radius: 8px 8px 0 0;
+	border-radius: 8px 8px 0 0;
+	text-shadow: 1px 1px 1px black;
+	-webkit-transition: background 300ms;
+	-moz-transition: background 300ms;
+	-o-transition: background 300ms;
+	transition: background 300ms;
+}
+#menu a > span {
+	position: absolute;
+	width: 8px;
+	height: 8px;
+	bottom: 0;
+	opacity: 0;
+	-webkit-transition: opacity 300ms;
+	-moz-transition: opacity 300ms;
+	-o-transition: opacity 300ms;
+	transition: opacity 300ms;
+}
+#menu a:hover {
+	background: rgba(0,0,0,0.2); }
+#menu a:hover span {
+	opacity:0.2 }
+#menu .elbow-left{
+	background: -o-radial-gradient(0 0, circle, transparent 7px, black 8px);
+	background: -moz-radial-gradient(0 0, circle, transparent 7px, black 8px);
+	background: -webkit-radial-gradient(0 0, circle, transparent 7px, black 8px);
+}
+#menu .elbow-right{
+	background: -o-radial-gradient(100% 0, circle, transparent 7px, black 8px);
+	background: -moz-radial-gradient(100% 0, circle, transparent 7px, black 8px);
+	background: -webkit-radial-gradient(100% 0, circle, transparent 7px, black 8px);
+}
+#menu .elbow-left {left: -8px;}
+#menu .elbow-right {right: -8px;}
+#menu .active {z-index:9;}
+#menu .active a {
+	background: #fff;
+	color: #003300;
+	text-shadow: 1px 1px 2px #afa; }
+#menu .active a > span {
+	opacity: 1;
+}
+#menu .active .elbow-left {
+	background: -o-radial-gradient(0 0, circle, transparent 7px, #fff 8px);
+	background: -moz-radial-gradient(0 0, circle, transparent 7px, #fff 8px);
+	background: -webkit-radial-gradient(0 0, circle, transparent 7px, #fff 8px);
+}
+#menu .active .elbow-right {
+	background: -o-radial-gradient(100% 0, circle, transparent 7px, #fff 8px);
+	background: -moz-radial-gradient(100% 0, circle, transparent 7px, #fff 8px);
+	background: -webkit-radial-gradient(100% 0, circle, transparent 7px, #fff 8px);
+}

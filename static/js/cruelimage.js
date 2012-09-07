@@ -49,7 +49,7 @@ function loadImageCropper(index){
 			jcrop_api = this;
 			$dialog.dialog({
 				modal: true,
-				title: 'Crop the profile photo',
+				title: 'Crop the Image',
 				resizable: false,
 				draggable: false,
 				width: cropimage.width+200,
@@ -97,6 +97,12 @@ function AddAjaxDiv(container, classname, msg){
 		.children().first();
 }
 
+function highlightCurrentTab(){
+	var url = document.location.pathname,
+		$tab = $('#menu li').has('a[href="'+url+'"]');
+	$tab.addClass('active');
+}
+
 function handleXhrError(xhr) {
 	document.open();
 	document.write(xhr.responseText);
@@ -104,12 +110,9 @@ function handleXhrError(xhr) {
 }
 
 $(function(){
-	if ($('#scanfile').length > 0)
-		loadScanUploader();
-	// $.ajaxSetup({error: handleXhrError});
-
+//	$.ajaxSetup({error: handleXhrError});
+	highlightCurrentTab();
 	imagescroll_onload();
-
 	if (!FileReader){
 		alert("Your browser doesn't support this site. Please use Chrome or Firefox.");
 	}
