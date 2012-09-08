@@ -317,5 +317,5 @@ function imagescroll_onload(){
 			uploadURL($('#url').val());
 			$('#url').val('');
 		}, 100);
-	});
+	}).focus();
 }
