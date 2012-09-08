@@ -47,6 +47,8 @@ function uploadURL(url){
 	$.post('/upload', {
 		url: url
 	}, function(data){
+		$('#url').val('');
+		$('#content').unblock();
 		data.result = data;
 		uploadDone(null, data);
 	});
@@ -314,8 +316,8 @@ function imagescroll_onload(){
 
 	$('#url').bind('paste', function(){
 		setTimeout(function(){
+			$('#content').block();
 			uploadURL($('#url').val());
-			$('#url').val('');
 		}, 100);
 	}).focus();
 }
