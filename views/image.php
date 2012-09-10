@@ -32,6 +32,7 @@ header('Cache-Control: max-age='.CI_IMAGE_EXPIRATION);
 header('Expires: '. gmdate('D, d M Y H:i:s \G\M\T', time() + CI_IMAGE_EXPIRATION));
 header('Content-Length: ' . $file->getSize());
 header('Content-Type: ' . $file->getMimeType());
+header('Content-Disposition: inline; filename="'.$filename.'"');
 if(isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) && $_SERVER['HTTP_IF_MODIFIED_SINCE'] == $lastModified){
 	// Issue HTTP 304 for unchanged images to speed up the response
 	header('Last-Modified: '.$_SERVER['HTTP_IF_MODIFIED_SINCE'], true, 304);
