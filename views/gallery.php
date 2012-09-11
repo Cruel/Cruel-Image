@@ -3,6 +3,7 @@
 $template->set('title', 'Gallery - '.CI_TITLE);
 $template->add('js_extra', URL_ROOT.'static/js/gallery.js');
 $template->place('header');
+$template->inject('home/header.php');
 
 $page = fRequest::get('page');
 $time = fRequest::get('time', 'integer', time());
@@ -28,4 +29,5 @@ $images = fRecordSet::build('Image', array('time<'=>$time), array('time'=>'desc'
 
 <?php
 
+$template->inject('home/footer.php');
 $template->place('footer');
