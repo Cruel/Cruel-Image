@@ -5,16 +5,18 @@ html {
 
 dl {
     margin-bottom:50px;
+    max-width: 800px;
 }
  
 dl dt {
     background:#5f9be3;
     color:#fff;
-    float:left; 
+    float:left;
+    clear:both;
     font-weight:bold; 
     margin-right:10px; 
     padding:5px;  
-    width:100px; 
+    width:150px;
 }
  
 dl dd {
@@ -22,7 +24,17 @@ dl dd {
     padding:5px 0;
 }
 
-#config_fields {
+#preliminary dt {
+    width: 300px;
+}
+.passed {
+    background:#009900;
+}
+.failed {
+    background:#CC0000;
+}
+
+#config_fields, #db_fields {
 	display:none;
 }
 

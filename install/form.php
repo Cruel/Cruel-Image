@@ -32,6 +32,53 @@
 	<form action="<?php echo fURL::get() ?>" method="POST">
 		<input name="domain" type="hidden" value="<?php echo fURL::getDomain() ?>" />
 		<dl>
+
+			<?php
+				$writable_dirs = array(
+					'Upload Folder'=>'/uploads/',
+					'Thumbnail Folder'=>'/uploads/thumb/',
+					'Cache Folder'=>'/static/cache/',
+					'Config File'=>'/inc/',
+				);
+				$required_exts = array('gd','iconv','exif','curl');
+				$exts = get_loaded_extensions();
+				$php_ini_filename = php_ini_loaded_file();
+				$prelim_pass = TRUE;
+			?>
+			<fieldset id="preliminary">
+				<legend>Preliminary Installation Check</legend>
+<!--                <dt class="passed">Upload Folder Permissions</dt><dd>OK</dd>-->
+				<noscript>
+					<dt class="failed">Javascript Check</dt>
+					<dd>You need to enable javascript for installation</dd>
+				</noscript>
+				<?php
+					foreach($writable_dirs as $name => $dir) {
+						if (is_writable(DOC_ROOT.$dir)){
+							echo "<dt class=\"passed\">$name Permissions</dt><dd>OK</dd>";
+						} else {
+							$prelim_pass = FALSE;
+							echo "<dt class=\"failed\">$name Permissions</dt>";
+							echo "<dd>No write permissions for <strong>".DOC_ROOT."$dir</strong></dd>";
+						}
+					}
+					foreach($required_exts as $ext) {
+						if (in_array($ext, $exts)){
+							echo "<dt class=\"passed\">PHP Extension: $ext</dt><dd>OK</dd>";
+						} else {
+							$prelim_pass = FALSE;
+							echo "<dt class=\"failed\">PHP Extension: $ext</dt>";
+							echo "<dd>You must install <strong>$ext</strong> and enable it in $php_ini_filename</dd>";
+						}
+					}
+					if ($prelim_pass){
+						echo '<button id="btnBegin">Begin Install</button>';
+					} else {
+						echo '<button class="btnRefresh">Retry</button>';
+					}
+				?>
+			</fieldset>
+
 			<fieldset id="db_fields">
 				<legend>Database</legend>
 				<dt>Type</dt>
@@ -40,7 +87,7 @@
 						<option value="mysql">MySQL</option>
 					</select>
 				</dd>
-				<dt>Name</dt>
+				<dt>Database</dt>
 				<dd><input name="db_name" type="text" /></dd>
 				<dt>Username</dt>
 				<dd><input name="db_user" type="text" /></dd>
@@ -58,6 +105,12 @@
 				<legend>Site Configuration</legend>
 				<dt>Title</dt>
 				<dd><input name="title" type="text" placeholder="Cruel Image Hosting" /></dd>
+				<dt>Admin Username</dt>
+				<dd><input name="admin_name" type="text" /></dd>
+				<dt>Admin Password</dt>
+				<dd><input id="adminpass1" name="admin_pass" type="password" /></dd>
+				<dt>Retype Password</dt>
+				<dd><input id="adminpass2" type="password" /></dd>
 				<button id="btnInstall">Install</button>
 				<div id="install_error"></div>
 			</fieldset>
@@ -69,7 +122,7 @@
 			<textarea></textarea>
 			<p>To recreate the configuration file using this installer, just delete it and navigate to this page again.</p>
 			<p>However it is recommended that you now <strong>delete or rename</strong> your <em>/install/</em> folder for security, in the case your configuration is accidentally deleted.</p>
-			<p>To view your new site, simply <a href="javascript:window.location.reload()">refresh</a>.</p>
+			<p>To view your new site, simply <button class="btnRefresh">refresh</button></p>
 		</div>
 	</form>
 	<script>
