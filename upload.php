@@ -76,6 +76,7 @@ if ($urlorig) {
 		$filename = CI_UPLOAD_DIR.fFilesystem::makeURLSafe($url);
 		$filename = fFilesystem::makeUniqueName($filename);
 		if ($type == "image/jpeg"){
+            // TODO: use flourish image functions instead of GD-specific functions
 			$im = imagecreatefromjpeg($tmpfile);
 			if (!$im || !imagejpeg($im, $filename, $jpeg_quality)) outputFail();
 		} else {
@@ -87,7 +88,11 @@ if ($urlorig) {
 	}
 } else {
 	$uploader = new fUpload();
-	$uploader->setMaxSize(CI_MAX_FILESIZE);
+    try {
+        $uploader->setMaxSize(CI_MAX_FILESIZE);
+    } catch (Exception $e) {
+        outputFail(array($e->getMessage()));
+    }
 	$errors = array();
 	$upload_count = fUpload::count('files');
 	for ($i=0; $i < $upload_count; $i++) {
