@@ -8,7 +8,7 @@ $authlevels = array(
 );
 define("AUTH_LEVELS", serialize($authlevels));
 
-fAuthorization::setLoginPage(URL_ROOT.'admin?p=login');
+fAuthorization::setLoginPage(URL_ROOT.'admin/login');
 fAuthorization::setAuthLevels($authlevels);
 
 $page = fRequest::get('p', 'string', 'dash');
