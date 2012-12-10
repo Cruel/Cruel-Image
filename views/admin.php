@@ -15,6 +15,8 @@ $page = fRequest::get('p', 'string', 'dash');
 if ($page != 'login')
 	fAuthorization::requireAuthLevel('moderator');
 
+$template->set('title', 'Admin - '.CI_TITLE);
+$template->add('js_extra', URL_ROOT.'static/js/admin.js');
 $template->place('header');
 $template->inject('admin/header.php');
 $template->inject("admin/$page.php");

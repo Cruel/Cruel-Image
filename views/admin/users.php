@@ -24,11 +24,13 @@ if (fRequest::isDelete()) {
 	}
 }
 
+$users = fRecordSet::build('User');
+
 ?>
 
 <form method="POST">
-	<input name="name" type="text" />
-	<input name="pass" type="password" />
+	<input name="name" type="text" placeholder="Username" />
+	<input name="pass" type="password" placeholder="Password" />
 	<select name="level">
 		<?php
 			foreach(unserialize(AUTH_LEVELS) as $key => $val){
@@ -37,5 +39,22 @@ if (fRequest::isDelete()) {
 		?>
 	</select>
 	<input type="hidden" name="request_token" value="<?php echo fRequest::generateCSRFToken() ?>" />
-	<button>Create</button>
+	<button>Add User</button>
 </form>
+
+<table>
+	<thead>
+		<tr>
+			<td>Username</td>
+			<td>Access Level</td>
+			<td>Actions</td>
+		</tr>
+	</thead>
+	<tbody>
+		<?php
+			foreach ($users as $user){
+				echo '<tr><td>'.$user->getName().'</td><td>'.$user->getLevel().'</td><td>Delete</td></tr>';
+			}
+		?>
+	</tbody>
+</table>
