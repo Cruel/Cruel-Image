@@ -19,3 +19,9 @@ CREATE TABLE IF NOT EXISTS `users` (
   `level` varchar(10) NOT NULL,
   PRIMARY KEY (`name`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE IF NOT EXISTS `settings` (
+  `name` varchar(30) NOT NULL,
+  `value` text NOT NULL,
+  PRIMARY KEY (`name`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

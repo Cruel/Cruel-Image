@@ -29,6 +29,15 @@ function createConfiguration($db_create=FALSE){
 			$user->setLevel('superadmin');
 			$user->store();
 
+			$settings = array(
+				"('APIKEY', 'asdf')",
+				"('THEME', 'chevereto')",
+				"('TITLE', '$title')",
+			);
+			$sql = "INSERT INTO `settings` (`name`, `value`) VALUES ";
+			$sql .= implode(',', $settings);
+			$db->execute($sql);
+
 			$var_arr = array('db_type', 'db_name', 'db_user', 'db_pass', 'db_host', 'db_port', 'title', 'path');
 			$config = file_get_contents(DOC_ROOT.'/inc/config.dist.php');
 			$config_file = DOC_ROOT.'/inc/config.php';

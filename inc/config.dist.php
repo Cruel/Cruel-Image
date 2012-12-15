@@ -1,8 +1,5 @@
 <?php
 
-define('CI_TITLE', $title);
-define('CI_THEME', 'chevereto');
-
 define('CI_MAX_FILESIZE', '4M'); // Must match maxFileSize value in upload.js
 define('CI_MAX_IMAGE_WIDTH', NULL);
 define('CI_THUMBNAIL_WIDTH', 200);
@@ -17,8 +14,6 @@ define('CI_DB_USER', $db_user);
 define('CI_DB_PASS', $db_pass);
 define('CI_DB_HOST', $db_host); // NULL for default (localhost)
 define('CI_DB_PORT', $db_port); // NULL for default
-
-define('CI_APIKEY', $api_key);
 
 define('CI_TIMEZONE', 'America/New_York'); // http://php.net/manual/en/timezones.php
 define('CI_DATEFORMAT', 'n/j/y'); // http://php.net/manual/en/function.date.php
