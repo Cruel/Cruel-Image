@@ -13,7 +13,7 @@ $page_arr = array(
 );
 
 if (in_array($page, $page_arr)){
-	require DOC_ROOT."/views/$page.php";
+	require DOC_ROOT."/controllers/$page.php";
 } else {
 	require DOC_ROOT."/views/404.php";
 }

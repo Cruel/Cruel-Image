@@ -1,15 +1,5 @@
 <?php
 
-if (fRequest::isPost()) {
-	// Save settings
-	$settings = fRequest::get('settings');
-	$db = $this->get('db');
-	foreach ($settings as $key => $value){
-		$db->execute("UPDATE settings SET value = %s WHERE name = %s", $value, strtoupper($key));
-		echo "Saved - $key:$value<br />";
-	}
-}
-
 $themes = array();
 if ($handle = opendir(DOC_ROOT.'/static/themes')) {
 	while (false !== ($entry = readdir($handle))) {

@@ -12,12 +12,10 @@ $images = fRecordSet::build('Image', array('time<'=>$time), array('time'=>'desc'
 	foreach ($images as $image){
 		$file = $image->getId().'.'.$image->getType();
 		?>
-		<a href="<?php echo URL_ROOT.$file ?>" rel="lightbox" title="<?php echo $image->encodeTitle() ?>">
-			<img src="<?php echo URL_ROOT.'t/'.$file ?>" />
-		</a>
+			<img data-imageid="<?php echo $image->getId() ?>" data-imageurl="<?php echo URL_ROOT.$file ?>" src="<?php echo URL_ROOT.'t/'.$file ?>" />
 		<?php } ?>
 </div>
 <div id="infinite-loading"></div>
 <nav id="page-nav">
-	<a href="<?php echo URL_ROOT.'gallery/'.($page + 1).'?time='.$time ?>"></a>
+	<a href="<?php echo URL_ROOT.'admin/images?page='.($page + 1).'&time='.$time ?>"></a>
 </nav>
