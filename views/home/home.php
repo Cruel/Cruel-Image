@@ -1,5 +1,5 @@
 <?php
-	$this->set('title', CI_TITLE);
+//	$this->set('title', CI_TITLE);
 //	$template->add('rss', array('path' => '/sup/rss/blog.rss', 'title' => 'Blog Posts'));
 ?>
 
@@ -20,6 +20,8 @@
 	<!--		<input id="title" type="text" name="title" placeholder="Optional" />-->
 
 	<input type="hidden" id="token" value="<?php echo fRequest::generateCSRFToken() ?>" />
+<!--    TODO: use MAX_FILE_SIZE for maxFileSize in upload.js -->
+	<input type="hidden" name="MAX_FILE_SIZE" value="<?php echo CI_MAX_FILESIZE ?>" />
 	<input id="files" type="file" name="files[]" multiple accept="image/*" />
 	<input id="url" name="url" type="text" placeholder="Paste Image URL" />
 </form>
