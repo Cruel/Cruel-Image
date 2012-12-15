@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
 	<title><?php echo $this->prepare('title') ?></title>
-	<link rel="alternate" type="application/rss+xml" title="Cruel Image Latest Feed" href="rss.xml" />
+	<link rel="alternate" type="application/rss+xml" title="Cruel Image Latest Feed" href="<?php echo URL_ROOT ?>rss.xml" />
 	<meta charset="utf-8" />
 	<meta name="description" content="This is CruelImage" />
-	<link rel="shortcut icon" type="image/png" href="/static/favicon.png">
+	<link rel="shortcut icon" type="image/png" href="<?php echo URL_ROOT ?>static/favicon.png">
 
 	<?php
 		$this->add('js', URL_ROOT.'static/js/upload.js', TRUE);
@@ -19,8 +19,9 @@
 		$this->add('js', URL_ROOT.'static/js/jquery.masonry.min.js', TRUE);
 		$this->add('js', URL_ROOT.'static/js/jquery.zclip.min.js', TRUE);
 		$this->add('js', URL_ROOT.'static/js/jquery.fileupload.js', TRUE);
-		$this->add('js', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js', TRUE);
-		$this->add('js', 'https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js', TRUE);
+		$this->add('js', URL_ROOT.'static/js/jquery.contextMenu.js', TRUE);
+		$this->add('js', 'https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js', TRUE);
+		$this->add('js', 'https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js', TRUE);
 		
 		$this->add('css', URL_ROOT.'static/themes/'.CI_THEME.'/style.css', TRUE);
 		$this->add('css', URL_ROOT.'static/css/jquery-ui-1.8.21.css', TRUE);

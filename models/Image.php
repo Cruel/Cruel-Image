@@ -94,6 +94,8 @@
 
 		public function delete( $force_cascade=FALSE ){
 			// Delete all related files
+			unlink(CI_UPLOAD_DIR . $this->getFileName());
+			unlink(CI_UPLOAD_DIR .'thumb/'. $this->getFileName());
 			parent::delete($force_cascade);
 		}
 
