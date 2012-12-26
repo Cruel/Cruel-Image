@@ -15,6 +15,18 @@ $page = fRequest::get('p', 'string', 'dash');
 if ($page != 'login')
 	fAuthorization::requireAuthLevel('moderator');
 
+function renderPage($page, $opts = array()){
+	global $template;
+	$template->set('title', 'Admin - '.CI_TITLE);
+	$template->set($opts);
+	$template->add('js_extra', URL_ROOT.'static/js/admin.js');
+	$template->place('header');
+	$template->inject('admin/header.php');
+	$template->inject("admin/$page.php");
+	$template->inject('admin/footer.php');
+	$template->place('footer');
+}
+
 if (fRequest::isPost()){
 	switch ($page){
 
@@ -30,7 +42,30 @@ if (fRequest::isPost()){
 					throw new fExpectedException('Incorrect password.');
 				}
 			} catch (fException $e) {
-				$e->printMessage();
+				renderPage($page, array('error'=>$e->getMessage()));
+			}
+			break;
+
+		case "users":
+//			if (fRequest::isDelete()) {
+//				try {
+//					$user = new User('test');
+//					$user->delete();
+//				} catch (fValidationException $e) {
+//					echo $e->printMessage();
+//				}
+//				echo "Deleted user: test";
+//			}
+			try {
+				fRequest::validateCSRFToken(fRequest::get('request_token'));
+				$user = new User();
+				$user->setName(strtolower(fRequest::get('name')));
+				$user->setPassword(fRequest::get('pass', 'string', NULL, TRUE));
+				$user->setLevel(fRequest::get('level'));
+				$user->store();
+				renderPage($page, array('message'=>"Created user: ".$user->getName()));
+			} catch (fExpectedException $e) {
+				renderPage($page, array('message'=>$e->getMessage()));
 			}
 			break;
 
@@ -69,11 +104,5 @@ if (fRequest::isPost()){
 
 	}
 } else {
-	$template->set('title', 'Admin - '.CI_TITLE);
-	$template->add('js_extra', URL_ROOT.'static/js/admin.js');
-	$template->place('header');
-	$template->inject('admin/header.php');
-	$template->inject("admin/$page.php");
-	$template->inject('admin/footer.php');
-	$template->place('footer');
+	renderPage($page);
 }

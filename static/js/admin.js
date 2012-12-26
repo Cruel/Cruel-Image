@@ -42,11 +42,10 @@ function adminImages(){
 			}
 		},
 		items: {
-			"edit": {name: "Edit", icon: "edit"},
 			"view": {name: "View", icon: "view"},
 			"delete": {name: "Delete", icon: "delete"},
 			"sep1": "---------",
-			"quit": {name: "Quit", icon: "quit"}
+			"quit": {name: "Test", icon: "quit"}
 		}
 	});
 	$(document).on("mousedown", ".ui-selectee", function(e) {
@@ -115,8 +114,8 @@ $(function(){
 			}
 		},
 		function(data){
-			alert(data);
-//			window.location.reload();
+//			alert(data);
+			window.location.reload();
 		});
 	});
 });

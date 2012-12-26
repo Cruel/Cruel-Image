@@ -2,31 +2,11 @@
 
 fAuthorization::requireAuthLevel('admin');
 
-if (fRequest::isDelete()) {
-	try {
-		$user = new User('test');
-		$user->delete();
-	} catch (fValidationException $e) {
-		echo $e->printMessage();
-	}
-	echo "Deleted user: test";
-} elseif (fRequest::isPost()) {
-	try {
-		fRequest::validateCSRFToken(fRequest::get('request_token'));
-		$user = new User();
-		$user->setName(strtolower(fRequest::get('name')));
-		$user->setPassword(fRequest::get('pass', 'string', NULL, TRUE));
-		$user->setLevel(fRequest::get('level'));
-		$user->store();
-		echo "Created user: ".$user->getName();
-	} catch (fExpectedException $e) {
-		$e->printMessage();
-	}
-}
-
 $users = fRecordSet::build('User');
 
 ?>
+
+<div id="message"><?php echo $this->get('message') ?></div>
 
 <form method="POST">
 	<input name="name" type="text" placeholder="Username" />
