@@ -20,6 +20,8 @@ $(function(){
 		$('#content').unblock();
 		$gallery.show().masonry({
 			itemSelector : 'a',
+			columnWidth : 200,
+			gutterWidth : 8,
 		}).infinitescroll({
 				navSelector  : '#page-nav',    // selector for the paged navigation
 				nextSelector : '#page-nav a',  // selector for the NEXT link (to page 2)
