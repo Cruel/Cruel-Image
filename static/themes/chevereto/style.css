@@ -330,6 +330,11 @@ input[type=file]{
 	.gallery img {
 		margin: 4px;
 	}
+	.gallery img:hover {
+		opacity: 0.9;
+		outline: 1px solid #666;
+		box-shadow: 0px 0px 10px #000;
+	}
 
 #infscr-loading {
 	text-align: center;
