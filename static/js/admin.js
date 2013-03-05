@@ -50,17 +50,15 @@ function adminImages(){
 	});
 	$(document).on("mousedown", ".ui-selectee", function(e) {
 		if (e.which == 3) { //Right-clicked
-			if (!$(this).hasClass('ui-selected')){
+			if (!$(this).hasClass('ui-selected')) {
 				$('.ui-selectee').removeClass('ui-selected').css('opacity','0.3');
 				$(this).addClass('ui-selected').css('opacity','');
 			}
 		}
 	});
 
-	var imageTimeout;
-	$gallery.hide().imagesLoaded(function(){
-		$('#content').unblock();
-		$gallery.show().selectable({
+	var imageTimeout,
+		selectable_opts = {
 			start: function(){
 				imageTimeout = setTimeout(function(){
 					$('.ui-selectee').css('opacity','');
@@ -71,18 +69,22 @@ function adminImages(){
 				$('.ui-selectee').css('opacity', ($('.ui-selected').length > 0) ? '0.3' : '');
 				$('.ui-selected').css('opacity','');
 			}
-		}).masonry({
+		};
+
+	$gallery.hide().imagesLoaded(function(){
+		$('#content').unblock();
+		$gallery.show().selectable(selectable_opts).masonry({
 				itemSelector : 'img',
 				columnWidth : 200,
 				gutterWidth : 8,
 			}).infinitescroll({
 				navSelector  : '#page-nav',    // selector for the paged navigation
 				nextSelector : '#page-nav a',  // selector for the NEXT link (to page 2)
-				itemSelector : '.gallery > a',     // selector for all items you'll retrieve
+				itemSelector : '.admin-gallery > img',     // selector for all items you'll retrieve
 				loading: {
 					msgText: "<em>Loading more images...</em>",
 					finishedMsg: 'No more pages to load.',
-					img: 'static/loading.gif'
+					img: '/static/loading.gif'
 				}
 			},
 			// trigger Masonry as a callback
@@ -91,8 +93,7 @@ function adminImages(){
 				var $newElems = $( newElements).css({ opacity: 0 }).hide();
 				// ensure that images load before adding to masonry layout
 				$newElems.imagesLoaded(function(){
-					slimbox($newElems);
-					$newElems.show().animate({ opacity: 1 }, 1000);
+					$newElems.show().css('opacity', ($('.ui-selected').length > 0) ? '0.3' : '');
 					$gallery.masonry( 'appended', $newElems, true );
 				});
 			}
