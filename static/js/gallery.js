@@ -29,7 +29,7 @@ $(function(){
 				loading: {
 					msgText: "<em>Loading more images...</em>",
 					finishedMsg: 'No more pages to load.',
-					img: 'static/loading.gif'
+					img: '/static/loading.gif'
 				}
 			},
 			// trigger Masonry as a callback
@@ -50,10 +50,3 @@ $(function(){
 	$('#infinite-loading').hide();
 	slimbox($("a[rel^='lightbox']"));
 });
-
-// TODO: AUTOLOAD CODE BLOCK (MAY BE CHANGED OR REMOVED)
-// if (!/android|iphone|ipod|series60|symbian|windows ce|blackberry/i.test(navigator.userAgent)) {
-// 	jQuery(function($) {
-// 			slimbox($("a[rel^='lightbox']"));
-// 	});
-// }
