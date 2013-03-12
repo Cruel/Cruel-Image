@@ -1,7 +1,5 @@
 <?php
 
-require_once('inc/loader.php');
-require_once('inc/config.php');
 fCore::enableDebugging(FALSE);
 
 function output404(){
@@ -38,7 +36,8 @@ header('Content-Type: ' . $file->getMimeType());
 if(isset($_SERVER['HTTP_IF_MODIFIED_SINCE']) && $_SERVER['HTTP_IF_MODIFIED_SINCE'] == $lastModified){
 	// Issue HTTP 304 for unchanged images to speed up the response
 	header('Last-Modified: '.$lastModified, true, 304);
-	die();
+} else {
+	header('Last-Modified: '.$lastModified);
+	$file->output(FALSE);
 }
-header('Last-Modified: '.$lastModified);
-$file->output(FALSE);
+
