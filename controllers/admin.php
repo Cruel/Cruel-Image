@@ -1,5 +1,6 @@
 <?php
 
+$plugins->refresh_cache();
 $authlevels = array(
 	'superadmin' => 10,
 	'admin'  => 9,
@@ -70,12 +71,20 @@ if (fRequest::isPost()){
 			break;
 
 		case "settings":
+			// TODO: Clear cache/min folder for when theme is changed?
 			// Save settings
 			$settings = fRequest::get('settings');
-//			$db = $this->get('db');
-			foreach ($settings as $key => $value){
-				$db->execute("UPDATE settings SET value = %s WHERE name = %s", $value, strtoupper($key));
-				echo "Saved - $key:$value<br />";
+			if ($settings)
+				foreach ($settings as $key => $value){
+					$db->execute("UPDATE settings SET value = %s WHERE name = %s", $value, strtoupper($key));
+					echo "Saved - $key:$value<br />";
+				}
+			else {
+				$p = fRequest::get('plugin_enable');
+				if ($p) $plugins->enable($p);
+				$p = fRequest::get('plugin_disable');
+				if ($p) $plugins->disable($p);
+				renderPage($page);
 			}
 			break;
 

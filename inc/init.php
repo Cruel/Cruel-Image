@@ -7,6 +7,7 @@ if (!include('config.php')){
 	}
 	die();
 }
+require_once('plugins.php');
 
 fTimestamp::setDefaultTimezone(CI_TIMEZONE);
 fTimestamp::defineFormat('default', CI_DATEFORMAT);
