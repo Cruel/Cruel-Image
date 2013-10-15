@@ -51,8 +51,11 @@ dwsync.xml
 
 # IDEA IDE configuration folder
 .idea/
-# CakePHP tmp files
-tmp/*
-uploads/*
-static/cache/*
+
+# CruelImage
+inc/config.php
+inc/plugin_config.php
+uploads/
+static/cache/
+vendor/
 *.json
