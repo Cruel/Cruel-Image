@@ -215,7 +215,7 @@ function loadUploader(){
 		fileTypes: filetypes,
 		//sequentialUploads: true,
 		singleFileUploads: false,
-		maxFileSize: 4000,
+		maxFileSize: 2000,
 		add: function (e, data) {
 			$.each(data.files, function (index, file) {
 				var duplicate = false;

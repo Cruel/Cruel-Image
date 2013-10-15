@@ -1,6 +1,6 @@
 <?php
 
-define('CI_MAX_FILESIZE', '4M'); // Must match maxFileSize value in upload.js
+define('CI_MAX_FILESIZE', '2M'); // Must match maxFileSize value in upload.js
 define('CI_MAX_IMAGE_WIDTH', NULL);
 define('CI_THUMBNAIL_WIDTH', 200);
 
