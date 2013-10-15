@@ -1,3 +1,0 @@
-[submodule "inc/flourish"]
-	path = inc/flourish
-	url = git://github.com/flourishlib/flourish-classes.git

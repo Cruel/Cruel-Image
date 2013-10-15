@@ -1,0 +1,60 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+    ],
+    "hash": "25e6aaf14649f33fbbb3756be1b70ec4",
+    "packages": [
+        {
+            "name": "flourish/flourish",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/flourishlib/flourish-classes.git",
+                "reference": "c739f224e1f10885e06a983511e1a8d6e80f647a"
+            },
+            "require": {
+                "php": ">=5.1.0"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.9.x-dev"
+                }
+            },
+            "autoload": {
+                "classmap": [
+                    "."
+                ]
+            },
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Will Bond",
+                    "role": "Developer",
+                    "homepage": "http://wbond.net/",
+                    "email": "will@wbond.net"
+                }
+            ],
+            "description": "A collection of classes for general web development, with a particular focus on compatibility, portability and security",
+            "homepage": "http://flourishlib.com/",
+            "time": "2013-09-25 20:08:28"
+        }
+    ],
+    "packages-dev": null,
+    "aliases": [
+
+    ],
+    "minimum-stability": "stable",
+    "stability-flags": {
+        "flourish/flourish": 20
+    },
+    "platform": {
+        "php": ">=5.3.0"
+    },
+    "platform-dev": [
+
+    ]
+}
