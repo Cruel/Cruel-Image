@@ -22,6 +22,7 @@ RewriteRule		^rss.xml$									index.php?action=rss		[L]
 RewriteRule     ^admin$                                     index.php?action=admin     [L,QSA]
 RewriteRule     ^admin/([\w]+)$                             index.php?action=admin&p=$1     [L,QSA]
 RewriteRule		^upload$										upload.php					[L]
+RewriteRule     ^([\w]+)$                             index.php?action=plugin&plugin=$1     [L,QSA]
 
 RewriteRule		^robots.txt$										static/robots.txt			[L]
 

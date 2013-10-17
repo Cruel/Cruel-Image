@@ -6,7 +6,6 @@ $plugin = fRequest::get('plugin');
 
 $page_arr = array(
 	'image',
-	'gallery',
 	'home',
 	'rss',
 	'404',
