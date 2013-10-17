@@ -7,15 +7,17 @@ Cruel Image is an image hosting software solution designed for the LAMP stack. A
 1. Make your hosting directory and give it proper ownership and permissions.
 2. For Apache, make sure AllowOverride is properly set to allow the .htaccess (there is only one in root dir).
 3. For Nginx, adapt the [included configuration](https://github.com/Cruel/Cruel-Image/blob/master/nginx.conf) to your needs.
-4. `git clone --recursive git://github.com/Cruel/Cruel-Image.git /your/directory/here`
-5. Create a MySQL database for exclusive Cruel Image use.
+4. `git clone git://github.com/Cruel/Cruel-Image.git /your/directory/here`
+5. `cd /your/directory/here`
+6. `composer install` (requires [Composer](http://getcomposer.org/))
+7. Create a MySQL database for exclusive Cruel Image use.
 
-6. #### Easy (Recommended)
+8. #### Easy (Recommended)
 Simply navigate to `http://yoursite.com/` (or `http://yoursite.com/directory/` if you put it there) to begin installation script.
 #### Advanaced
 Manually modify [inc/config.dist.php](https://github.com/Cruel/Cruel-Image/blob/master/inc/config.dist.php) and save it as `inc/config.php`
 
-7. Delete the `/install` subdirectory.
+9. Delete the `/install` subdirectory.
 
 ## Configuration
 
