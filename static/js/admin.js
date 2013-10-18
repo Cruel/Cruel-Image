@@ -111,7 +111,8 @@ $(function(){
 			settings: {
 				title: $('#title').val(),
 				theme: $('#theme').val(),
-				apikey: $('#apikey').val()
+				apikey: $('#apikey').val(),
+				admintab: $('#admintab:checked').length
 			}
 		},
 		function(data){

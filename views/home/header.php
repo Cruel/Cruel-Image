@@ -11,6 +11,9 @@
 						echo '<li><a id="link" href="'.URL_ROOT.$data['config']['page_url'].'">'.$data['config']['name'].'<span class="elbow-left"></span><span class="elbow-right"></span></a></li>';
 					}
 				?>
+				<?php if (CI_ADMINTAB): ?>
+					<li><a id="linkadmin" href="<?php echo URL_ROOT ?>admin">Admin<span class="elbow-left"></span><span class="elbow-right"></span></a></li>
+				<?php endif; ?>
 			</ul>
 		</div>
 	</div>

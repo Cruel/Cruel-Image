@@ -33,6 +33,7 @@ function createConfiguration($db_create=FALSE){
 				"('APIKEY', 'asdf')",
 				"('THEME', 'chevereto')",
 				"('TITLE', '$title')",
+				"('ADMINTAB', '0')",
 			);
 			$sql = "INSERT INTO `settings` (`name`, `value`) VALUES ";
 			$sql .= implode(',', $settings);

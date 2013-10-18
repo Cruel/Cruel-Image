@@ -22,14 +22,21 @@ if ($handle = opendir(DOC_ROOT.'/static/themes')) {
 	</div>
 
 	<div>
-		<h3>Theme</h3>
-		<select id="theme">
-		<?php
-			foreach ($themes as $theme){
-				echo "<option".(($theme == CI_THEME)?' selected':'').">$theme</option>";
-			}
-		?>
-		</select>
+		<h3>Look &amp; Feel</h3>
+		<div>
+			Theme
+			<select id="theme">
+			<?php
+				foreach ($themes as $theme){
+					echo "<option".(($theme == CI_THEME)?' selected':'').">$theme</option>";
+				}
+			?>
+			</select>
+		</div>
+		<div>
+			Show admin tab
+			<input id="admintab" type="checkbox" <?php if (CI_ADMINTAB) echo "checked" ?>/>
+		</div>
 	</div>
 
 	<div>
