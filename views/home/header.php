@@ -8,7 +8,8 @@
 				<li><a id="linkupload" href="<?php echo URL_ROOT ?>">Upload<span class="elbow-left"></span><span class="elbow-right"></span></a></li>
 				<?php
 					foreach($plugins->enabled() as $plugin => $data) {
-						echo '<li><a id="link" href="'.URL_ROOT.$data['config']['page_url'].'">'.$data['config']['name'].'<span class="elbow-left"></span><span class="elbow-right"></span></a></li>';
+						if ($data['has_page'])
+							echo '<li><a id="link" href="'.URL_ROOT.$data['config']['page_url'].'">'.$data['config']['name'].'<span class="elbow-left"></span><span class="elbow-right"></span></a></li>';
 					}
 				?>
 				<?php if (CI_ADMINTAB): ?>
