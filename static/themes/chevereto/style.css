@@ -615,9 +615,10 @@ input[type=file]{
 	text-align:center;
 	padding: 20px;
 }
-
+	.paginator_list li {
+		display: inline-block;
+	}
 .page {
-    display: inline-block;
     padding: 0px 9px;
     margin-right: 4px;
     border-radius: 3px;
@@ -631,16 +632,17 @@ input[type=file]{
     background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f8f8f8), to(#e9e9e9));
     background: -moz-linear-gradient(0% 0% 270deg,#f8f8f8, #e9e9e9);
 }
-.page a {
-	color: #717171;
+	.page a {
+		color: #717171;
+	}
+	.page:hover {
+	    background: #fefefe;
+	    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FEFEFE), to(#f0f0f0));
+	    background: -moz-linear-gradient(0% 0% 270deg,#FEFEFE, #f0f0f0);
+	}
+.page.disabled {
+	opacity: 0.3;
 }
-
-.page:hover {
-    background: #fefefe;
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FEFEFE), to(#f0f0f0));
-    background: -moz-linear-gradient(0% 0% 270deg,#FEFEFE, #f0f0f0);
-}
-
 .page.current {
     border: none;
     background: #616161;

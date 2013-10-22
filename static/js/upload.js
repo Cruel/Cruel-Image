@@ -158,8 +158,10 @@ function uploadDone(e, data) {
 								<button class="btnCopy">Copy</button>\
 							</div>';
 		}
-		AddAjaxDiv('#results', "ajax_uploaded", html).hide().imagesLoaded(function(){
-			$(this).show().find('.btnCopy').zclip({
+		var $imgdiv = AddAjaxDiv('#results', "ajax_uploaded", html);
+		$imgdiv.hide().imagesLoaded(function(){
+			console.log($imgdiv);
+			$imgdiv.show().find('.btnCopy').zclip({
 				path: "static/ZeroClipboard.swf",
 				copy: function(){
 					return $(this).prev().val();
@@ -168,15 +170,15 @@ function uploadDone(e, data) {
 					$(this).poshytip('show');
 				}
 			}).poshytip({
-					className: 'tip-twitter',
-					timeOnScreen: 2000,
-					content: 'Copied link',
-					showOn: 'none',
-					alignTo: 'target',
-					alignX: 'center',
-					offsetY: 5
-				});
-		})
+				className: 'tip-twitter',
+				timeOnScreen: 2000,
+				content: 'Copied link',
+				showOn: 'none',
+				alignTo: 'target',
+				alignX: 'center',
+				offsetY: 5
+			});
+		});
 
 	}
 	for (i in data.result.errors)

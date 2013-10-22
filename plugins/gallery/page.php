@@ -20,11 +20,11 @@ if ($vars['pagination'] == "numbered") {
 		'info'          => '<div class="paginator_info">Page {{ page }} of {{ total_records }} items</div>',
 		'start'         => '<div class="paginator_list"><ul>',
 		'prev'          => '<li class="page prev"><a href="?t={{ time }}&p={{ page }}">Prev</a></li>',
-		'prev_disabled' => '<li class="page prev">Prev</li>',
+		'prev_disabled' => '<li class="page prev disabled">Prev</li>',
 		'page'          => '<li class="page {{ first }} {{ last }} {{ current }}"><a href="?t={{ time }}&p={{ page }}">{{ page }}</a></li>',
-		'separator'     => '&hellip;',
+		'separator'     => '<li>&hellip;</li>',
 		'next'          => '<li class="page next"><a href="?t={{ time }}&p={{ page }}">Next</a></li>',
-		'next_disabled' => '<li class="page next">Next</li>',
+		'next_disabled' => '<li class="page next disabled">Next</li>',
 		'end'           => '</ul></div>'
 	));
 }
