@@ -74,12 +74,20 @@ if (fRequest::isPost()){
 			// TODO: Clear cache/min folder for when theme is changed?
 			// Save settings
 			$settings = fRequest::get('settings');
-			if ($settings)
+			$plugin_settings = json_decode(fRequest::get('plugins'), true);
+			if ($settings) {
+				
+				foreach ($plugin_settings as $key => $value) {
+					$plugins->data[$key]['config']['vars'] = $value;
+				}
+				$plugins->save_config();
+				
 				foreach ($settings as $key => $value){
 					$db->execute("UPDATE settings SET value = %s WHERE name = %s", $value, strtoupper($key));
 					echo "Saved - $key:$value<br />";
 				}
-			else {
+				
+			} else {
 				$p = fRequest::get('plugin_enable');
 				if ($p) $plugins->enable($p);
 				$p = fRequest::get('plugin_disable');

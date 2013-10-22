@@ -73,15 +73,23 @@ if ($handle = opendir(DOC_ROOT.'/static/themes')) {
 		</form>
 	</div>
 
+	<div id="pluginsettings">
 	<?php
 		foreach($plugins->data as $plugin => $data) {
 			if ($plugins->is_enabled($plugin)) {
-				echo "<div>";
-				echo "<h3>Plugin &dash; {$data['config']['name']}</h3>";
-				echo "</div>";
+				
+				if (isset($data['config']['vars'])) {
+					$vars = $data['config']['vars'];
+					echo '<div class="plugin" data-plugin="'.$plugin.'">';
+					echo "<h3>Plugin &dash; {$data['config']['name']}</h3>";
+					include(DOC_ROOT."/plugins/$plugin/configwidget.php");
+					echo "</div>";
+				}
+				
 			}
 		}
 	?>
+	</div>
 
 </section>
 

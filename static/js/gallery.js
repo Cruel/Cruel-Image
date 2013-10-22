@@ -16,12 +16,14 @@ $(function(){
 		css:{top:'100px'},
 		centerY:false
 	});
+	$('.paginator_list').hide();
 	$gallery.hide().imagesLoaded(function(){
+		$('.paginator_list').show();
 		$('#content').unblock();
 		$gallery.show().masonry({
 			itemSelector : 'a',
-			columnWidth : 200,
-			gutterWidth : 8,
+			columnWidth : $gallery.data('imagewidth'),
+			gutter: $gallery.data('spacing'),
 		}).infinitescroll({
 				navSelector  : '#page-nav',    // selector for the paged navigation
 				nextSelector : '#page-nav a',  // selector for the NEXT link (to page 2)

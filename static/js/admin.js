@@ -107,16 +107,21 @@ function adminImages(){
 $(function(){
 	adminImages();
 	$('#btnSettingsSave').click(function(){
+		var plugins = {};
+		$('#pluginsettings > div').each(function(i, el){
+			var plugin_name = $(el).data('plugin');
+			plugins[plugin_name] = window["plugin_"+plugin_name+"_save"]();
+		});
 		$.post('', {
 			settings: {
 				title: $('#title').val(),
 				theme: $('#theme').val(),
 				apikey: $('#apikey').val(),
 				admintab: $('#admintab:checked').length
-			}
+			},
+			plugins: JSON.stringify(plugins)
 		},
 		function(data){
-//			alert(data);
 			window.location.reload();
 		});
 	});
