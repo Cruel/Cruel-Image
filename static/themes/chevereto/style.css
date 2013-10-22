@@ -321,37 +321,6 @@ input[type=file]{
 	float: right;
 }
 
-/******** GALLERY *********/
-.gallery {
-	width: 850px;
-	margin: 0 auto;
-	overflow: hidden
-}
-	.gallery img {
-		margin: 4px;
-	}
-	.gallery img:hover {
-		opacity: 0.9;
-		outline: 1px solid #666;
-		box-shadow: 0px 0px 10px #000;
-	}
-
-#infscr-loading {
-	text-align: center;
-	z-index: 100;
-	position: fixed;
-	left: 45%;
-	bottom: 40px;
-	width: 200px;
-	padding: 10px;
-	background: #000;
-	opacity: 0.8;
-	color: #FFF;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	border-radius: 10px;
-}
-
 /***** TAB MENU *******/
 #menu {
 	position: absolute;
@@ -414,7 +383,10 @@ input[type=file]{
 }
 #menu .elbow-left {left: -8px;}
 #menu .elbow-right {right: -8px;}
-#menu .active {z-index:9;}
+#menu .active {
+	z-index: 9;
+	bottom: -1px;
+}
 #menu .active a {
 	background: #fff;
 	color: #003300;
@@ -634,4 +606,47 @@ input[type=file]{
 
 .context-menu-accesskey {
 	text-decoration: underline;
+}
+
+/* ********** */
+/* PAGINATION */
+/* ********** */
+.paginator_list {
+	text-align:center;
+	padding: 20px;
+}
+
+.page {
+    display: inline-block;
+    padding: 0px 9px;
+    margin-right: 4px;
+    border-radius: 3px;
+    border: solid 1px #c0c0c0;
+    background: #e9e9e9;
+    box-shadow: inset 0px 1px 0px rgba(255,255,255, .8), 0px 1px 3px rgba(0,0,0, .1);
+    font-size: .875em;
+    font-weight: bold;
+    text-decoration: none;
+    text-shadow: 0px 1px 0px rgba(255,255,255, 1);
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#f8f8f8), to(#e9e9e9));
+    background: -moz-linear-gradient(0% 0% 270deg,#f8f8f8, #e9e9e9);
+}
+.page a {
+	color: #717171;
+}
+
+.page:hover {
+    background: #fefefe;
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#FEFEFE), to(#f0f0f0));
+    background: -moz-linear-gradient(0% 0% 270deg,#FEFEFE, #f0f0f0);
+}
+
+.page.current {
+    border: none;
+    background: #616161;
+    box-shadow: inset 0px 0px 8px rgba(0,0,0, .5), 0px 1px 0px rgba(255,255,255, .8);
+    text-shadow: 0px 0px 3px rgba(0,0,0, .5);
+}
+.page.current a {
+	color: #f0f0f0;
 }
