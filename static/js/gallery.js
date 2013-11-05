@@ -46,8 +46,13 @@ $(function(){
 				});
 			}
 		);
-	}).progress( function( isBroken, $images, $proper, $broken ){
-		$('.blockMsg').html('Loading Images... ' + ( $proper.length + $broken.length ) + '/' + $images.length);
+	}).progress(function( instance, image ) {
+		var loaded = 0;
+		var count = instance.images.length;
+		for (var i = 0; i < count; i++)
+			if (instance.images[i].isLoaded)
+				loaded++;
+		$('.blockMsg').html('Loading Images... ' + loaded + '/' + count);
 	});
 	$('#infinite-loading').hide();
 	slimbox($("a[rel^='lightbox']"));
