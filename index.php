@@ -5,6 +5,7 @@ $page = fRequest::get('action');
 $plugin = fRequest::get('plugin');
 
 $page_arr = array(
+	'upload',
 	'image',
 	'home',
 	'rss',

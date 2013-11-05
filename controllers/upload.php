@@ -1,5 +1,5 @@
 <?php
-require_once('inc/init.php');
+
 fCore::enableDebugging(FALSE);
 
 $jpeg_quality = 80;
