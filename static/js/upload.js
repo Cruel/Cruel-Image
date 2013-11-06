@@ -125,7 +125,7 @@ function drawImageList(offset, percent){
 	$('#imagescroller ul').css('left', offset);
 }
 
-var filetypes = /^image\/(gif|jpeg|png|svg)$/;
+var filetypes = /^image\/(gif|jpeg|png|svg\+xml)$/;
 
 function resetUploader(){
 	filelist = [];
