@@ -21,7 +21,7 @@
 
 	<input type="hidden" id="token" value="<?php echo fRequest::generateCSRFToken() ?>" />
 <!--    TODO: use MAX_FILE_SIZE for maxFileSize in upload.js -->
-	<input type="hidden" name="MAX_FILE_SIZE" value="<?php echo CI_MAX_FILESIZE ?>" />
+	<input type="hidden" name="MAX_FILE_SIZE" value="<?php echo fFilesystem::convertToBytes(CI_MAX_FILESIZE) ?>" />
 	<input id="files" type="file" name="files[]" multiple accept="image/*" />
 	<input id="url" name="url" type="text" placeholder="Paste Image URL" />
 </form>
