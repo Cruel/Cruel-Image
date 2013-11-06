@@ -16,7 +16,7 @@ RewriteEngine	On
 
 RewriteRule		^favicon.ico								static/favicon.ico			[L]
 
-RewriteRule		^(t/)?[\w]{4}\.(jpg|gif|png)$				index.php?action=image		[L]
+RewriteRule		^(t/)?[\w]{4}\.(jpg|gif|png|svg)$				index.php?action=image		[L]
 RewriteRule		^$											index.php?action=home		[L]
 RewriteRule		^rss.xml$									index.php?action=rss		[L]
 RewriteRule     ^admin$                                     index.php?action=admin     [L,QSA]

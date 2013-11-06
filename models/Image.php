@@ -32,14 +32,21 @@
 			if (!$this->getId())
 				$this->genId();
 			$file_path = str_replace(CI_UPLOAD_DIR, '', $file->getPath());
-			
+
+			if ($file->getMimeType() == "image/svg+xml") {
+				$this->setType('svg');
+				$this->setWidth(0);
+				$this->setHeight(0);
+			} else {
+				$this->setType($file->getType());
+				$this->setWidth($file->getWidth());
+				$this->setHeight($file->getHeight());
+			}
+
 			$this->processImage();
 
 			$this->setFileName($file_path);
 			$this->setIp(inet_pton($_SERVER['REMOTE_ADDR']));
-			$this->setType($file->getType());
-			$this->setWidth($file->getWidth());
-			$this->setHeight($file->getHeight());
 			$this->setTime(time());
 			$this->store();
 		}
@@ -47,8 +54,12 @@
 		protected function processImage(){
 			$this->orientImage();
 			$thumb = $this->file->duplicate(CI_UPLOAD_DIR.'thumb/');
-			$thumb->resize(CI_THUMBNAIL_WIDTH, 0);
-			$thumb->saveChanges();
+			if ($this->getType() == 'svg') {
+				// TODO: Make png thumbnail?
+			} else {
+				$thumb->resize(CI_THUMBNAIL_WIDTH, 0);
+				$thumb->saveChanges();
+			}
 		}
 
 		protected function orientImage() {

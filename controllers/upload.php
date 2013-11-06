@@ -7,6 +7,7 @@ $valid_mime = array(
 	'image/gif',
 	'image/jpeg',
 	'image/pjpeg',
+	'image/svg+xml',
 	'image/png'
 );
 
@@ -22,15 +23,15 @@ if (!fRequest::isPost()){
 }
 
 function checkMime($filename){
-	$size = getimagesize($filename);
-	return ($size) ? $size['mime'] : FALSE;
+	$finfo = new finfo(FILEINFO_MIME_TYPE);
+	return $finfo->file($filename);
 }
 
-function addImage($filename){
+function addImage($file){
 	global $json;
 	$image = new Image();
 	$image->setTitle('');
-	$image->storeFile($filename);
+	$image->storeFile($file);
 	$json['files'][] = array(
 		'id'	=> $image->getId(),
 		'domain' => fURL::getDomain(),
@@ -82,7 +83,7 @@ if ($urlorig) {
 		} else {
 			if (!rename($tmpfile, $filename)) outputFail();
 		}
-		addImage(new fImage($filename, TRUE));
+		addImage(new fFile($filename));
 	} else {
 		outputFail(array("'$urlorig' is not a valid URL."));
 	}
@@ -108,7 +109,7 @@ if ($urlorig) {
 		} else {
 			$type = checkMime($_FILES['files']['tmp_name'][$i]);
 			if (!in_array($type, $valid_mime))
-				outputFail(array($_FILES['files']['name'][$i]." is not a valid image."));
+				outputFail(array($_FILES['files']['name'][$i]." (".$type.") is not a valid image."));
 			$file = $uploader->move(CI_UPLOAD_DIR, 'files', $i);
 			if ($type=="image/jpeg") {
 				if (!($file instanceof fImage)){
