@@ -83,7 +83,7 @@ if ($urlorig) {
 		} else {
 			if (!rename($tmpfile, $filename)) outputFail();
 		}
-		addImage(new fFile($filename));
+		addImage(fFilesystem::createObject($filename));
 	} else {
 		outputFail(array("'$urlorig' is not a valid URL."));
 	}
