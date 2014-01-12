@@ -61,7 +61,7 @@ if (fRequest::isPost()){
 				fRequest::validateCSRFToken(fRequest::get('request_token'));
 				$user = new User();
 				$user->setName(strtolower(fRequest::get('name')));
-				$user->setPassword(fRequest::get('pass', 'string', NULL, TRUE));
+				$user->setPassword($user->hashedPassword(fRequest::get('pass', 'string', NULL, TRUE)));
 				$user->setLevel(fRequest::get('level'));
 				$user->store();
 				renderPage($page, array('message'=>"Created user: ".$user->getName()));

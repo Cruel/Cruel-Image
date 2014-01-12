@@ -6,10 +6,9 @@ class User extends fActiveRecord {
 		//
 	}
 
-	public function setPassword($password){
+	public function hashedPassword($password){
 		if (!$password) return;
-		$hash = fCryptography::hashPassword($password);
-		parent::setPassword($hash);
+		return fCryptography::hashPassword($password);
 	}
 
 	public function checkPassword($password){

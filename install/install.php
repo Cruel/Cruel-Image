@@ -25,7 +25,7 @@ function createConfiguration($db_create=FALSE){
 
 			$user = new User();
 			$user->setName(strtolower(fRequest::get('admin_name')));
-			$user->setPassword(fRequest::get('admin_pass', 'string', NULL, TRUE));
+			$user->setPassword($user->hashedPassword(fRequest::get('admin_pass', 'string', NULL, TRUE)));
 			$user->setLevel('superadmin');
 			$user->store();
 
